@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 // ez az about page
 export default class Home extends Component {

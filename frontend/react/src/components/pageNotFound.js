@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 // általános oldal, a 404-re
 export default class PageNotFound extends Component {

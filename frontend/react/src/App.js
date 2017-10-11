@@ -74,5 +74,3 @@ function mapDispatchToProps(dispatch) {
 // alapból ez szokott kelleni: export default connect(mapStateToProps, mapDispatchToProps)(App);
 // a with router miatt működik a navigálás
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
-
-

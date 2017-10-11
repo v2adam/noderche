@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 // user bejelentkeztetése
 // ez egy dumb componens, értékeket a smart componenttől(container) kap, és neki adja vissz az adatokat

@@ -1,11 +1,11 @@
 import React from 'react';
 import NavBar from "../components/navBar";
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import LoadingBar from 'react-redux-loading-bar';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 
-import {logoutUser} from '../actions/authActions';
+import { logoutUser } from '../actions/authActions';
 import store from '../store';
 
 class Header extends React.Component {
