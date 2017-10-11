@@ -19,5 +19,3 @@ export default combineReducers({
   loadingBar: loadingBarReducer,
   router: routerReducer
 });
-
-// ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
