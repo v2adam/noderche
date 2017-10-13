@@ -19,7 +19,7 @@ import PrivateRoute from './misc/privateRoute';
 import UrlParamComponent from './components/urlParamComponent';
 import CommentDisplay from './components/statelessComponent';
 import ChartDemoContainer from './containers/chartDemoContainer';
-
+import MapDemoContainer from './containers/mapDemoContainer';
 
 //olyan mint az angularban az app.component
 //ez a főkomponens, ide rakni a route-okat
@@ -42,6 +42,7 @@ class App extends Component {
                         isAuthenticated={this.props.isAuthenticated}/>
           <Route path='/asd' component={CommentDisplay} valami='itt'/>
           <Route path='/chartdemo' component={ChartDemoContainer}/>
+          <Route path='/mapdemo' component={MapDemoContainer}/>
 
           <Route path="/valami/:id"
                  component={UrlParamComponent}/> {/* url-ben átadható paraméter*/}

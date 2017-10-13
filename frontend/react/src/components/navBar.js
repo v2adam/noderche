@@ -10,12 +10,11 @@ export default class NavBar extends Component {
 
     let secretMenu = null;
 
-    if(this.props.isAuthenticated){
+    if (this.props.isAuthenticated) {
 
       secretMenu = <li><NavLink activeClassName='active' to='/secret'>Secret</NavLink></li>;
 
     }
-
 
 
     return (
@@ -32,6 +31,7 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/chartdemo'>Chart Demo</NavLink></li>
             <li><NavLink activeClassName='active' to='/about'>About</NavLink></li>
             {secretMenu}
+            <li><NavLink activeClassName='active' to='/mapdemo'>Map Demo</NavLink></li>
           </ul>
         </div>
       </nav>
