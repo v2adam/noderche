@@ -7,27 +7,6 @@ import promisify from 'es6-promisify';
 // itt egy egyszerű példa, hogy nagyjából mi ez a callback-promise-async/await
 class MapDemoContainer extends Component {
 
-  valalmi1 = () => {
-
-    /*
-    Promise.all([this.valami()]).then(values => {
-
-      console.log(values[0][0].then(eredm => console.log(eredm)).catch(err => console.log(err)));
-
-    });
-    */
-
-    this.exampleAsyncFunction(2000, (err, result) => {
-      // amint végzett az exampleAsyncFunction, a callbackFv-nek adott eredmények itt lesznek
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-      }
-    })
-
-  };
-
   constructor() {
     // react komponensnél kell a super()
     super();
@@ -49,6 +28,14 @@ class MapDemoContainer extends Component {
 
     // ha nem használsz => -t a fv deklarálásnál, akkor bindolni kell
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
+  }
+
+
+  // ez arra van, ha begépelsz valamit, akkor változzon a beírt szöveg
+  handleChangeAddress(e) {
+    this.setState({
+      address: e.target.value
+    });
   }
 
 
@@ -132,32 +119,11 @@ class MapDemoContainer extends Component {
 
   };
 
-  /*
-    asyncThing = (value) => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => resolve(value), 100);
-      });
-    };
 
+  // ***********************************************************************************************
+  // példa a callback használatára
+  // ***********************************************************************************************
 
-    valami = () => {
-
-      return [1, 2, 3, 4].map(async (value) => {
-        const v = await this.asyncThing(value);
-        return v * 2;
-      });
-
-    };
-  */
-
-  // példa aszinkron függvény
-
-  // ez arra van, ha begépelsz valamit, akkor változzon a beírt szöveg
-  handleChangeAddress(e) {
-    this.setState({
-      address: e.target.value
-    });
-  }
 
   // x sec múlva visszaadja az eredményt a callbackFv-nek
   exampleAsyncFunction(waitSec, callbackFv) {
@@ -190,6 +156,84 @@ class MapDemoContainer extends Component {
 
   }
 
+
+  callBackExample = () => {
+
+    this.exampleAsyncFunction(2000, (err, result) => {
+      // amint végzett az exampleAsyncFunction, a callbackFv-nek adott eredmények itt lesznek
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+      }
+    });
+
+  };
+
+  // ***********************************************************************************************
+  // példa a promise használatára
+  // ***********************************************************************************************
+
+  asyncThing = (value) => {
+
+    // ha itt dobsz hibát, akkor elszáll az egész, mert még nincs egy promise-ban
+    //throw new Error('this will be an Uncaught Error');
+
+    return new Promise((resolve, reject) => {
+      // ha egy promise-ban hibát dobsz, akkor elkapj a láncolt catch
+      // throw new Error('throw error inside a promise');
+
+      // a reject ugyan az mint a fenti hibadobás
+      // reject('reject inside a promise');
+
+      setTimeout(() => {
+        // ha itt dobsz hibát, akkor elszáll -> try-catch-ben elkapod és utána reject-eld
+        // throw new Error('Uncaught Error');
+        resolve(value); // eredményt visszaadom
+      }, value);
+    });
+  };
+
+
+  promiseExample = () => {
+
+    // 5 sec alatt fut le
+    // meghívódik -> 3-sec után logolás + újabb promise hívás -> 2-sec után logolás
+    // ha a .then-ekben hibát dobnál, akkor rögtön a catch-be kerül
+    this.asyncThing(3000).then(res => {
+      // első promise eredménye kész
+      console.log(`Első promise: ${res} sec`);
+      // visszaadok egy újabb promise-t, amit a második then-nel kezelek
+      return this.asyncThing(2000);
+    }).then(res => {
+      // második promise eredménye kész
+      console.log(`Második promise: ${res} sec`);
+    }).catch(err => console.log(`Catch ág: ${err}`));
+
+  };
+
+
+  /*
+  valami = () => {
+
+    return [1, 2, 3, 4].map(async (value) => {
+      const v = await this.asyncThing(value);
+      return v * 2;
+    });
+
+  };
+*/
+
+
+  /*
+    Promise.all([this.valami()]).then(values => {
+
+     onsole.log(values[0][0].then(eredm => console.log(eredm)).catch(err => console.log(err)));
+
+    });
+*/
+
+
   render() {
     return (
       <div className='container'>
@@ -201,7 +245,8 @@ class MapDemoContainer extends Component {
                onChange={this.handleChangeAddress}
                className="form-control"/>
         <button className='btn btn-success' onClick={() => this.useGoogleApi()}>Search</button>
-        <button className='btn btn-success' onClick={() => this.valalmi1()}>Valami</button>
+        <button className='btn btn-success' onClick={() => this.callBackExample()}>Callback</button>
+        <button className='btn btn-success' onClick={() => this.promiseExample()}>Promise</button>
         <h4>Result: {this.state.gResponse}</h4>
       </div>
     );
