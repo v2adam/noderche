@@ -7,7 +7,52 @@ import promisify from 'es6-promisify';
 // itt egy egyszerű példa, hogy nagyjából mi ez a callback-promise-async/await
 class MapDemoContainer extends Component {
 
+  valalmi1 = () => {
 
+    /*
+    Promise.all([this.valami()]).then(values => {
+
+      console.log(values[0][0].then(eredm => console.log(eredm)).catch(err => console.log(err)));
+
+    });
+    */
+
+    this.exampleAsyncFunction(2000, (err, result) => {
+      // amint végzett az exampleAsyncFunction, a callbackFv-nek adott eredmények itt lesznek
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result);
+      }
+    })
+
+  };
+
+  constructor() {
+    // react komponensnél kell a super()
+    super();
+
+    //lehet így is
+    // import * as gmaps from '@google/maps'; //importok közé ezt
+    // this.gMapsClient = gmaps.createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
+
+
+    // vagy akár így, közletlenül behúzni
+    this.gMapsClient = require('@google/maps').createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
+
+
+    // komponensem belső állapotok
+    this.state = {
+      address: '', // ide kerül az input-ba írt szöveg
+      gResponse: '' // itt lesz az eredmény
+    };
+
+    // ha nem használsz => -t a fv deklarálásnál, akkor bindolni kell
+    this.handleChangeAddress = this.handleChangeAddress.bind(this);
+  }
+
+
+  // az async-nak kell nenni, hogy az await működjön, a többihez nem kell
   // a () => miatt autobind van
   useGoogleApi = async () => {
     // mindenegyik megoldás ugyan azt csinálja!
@@ -85,33 +130,27 @@ class MapDemoContainer extends Component {
       console.log(err);
     }
 
-
   };
 
-  // az async-nak kell nenni, hogy az await működjön, a többihez nem kell
-
-  constructor() {
-    // react komponensnél kell a super()
-    super();
-
-    //lehet így is
-    // import * as gmaps from '@google/maps'; //importok közé ezt
-    // this.gMapsClient = gmaps.createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
-
-
-    // vagy akár így, közletlenül behúzni
-    this.gMapsClient = require('@google/maps').createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
-
-
-    // komponensem belső állapotok
-    this.state = {
-      address: '', // ide kerül az input-ba írt szöveg
-      gResponse: '' // itt lesz az eredmény
+  /*
+    asyncThing = (value) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(value), 100);
+      });
     };
 
-    // ha nem használsz => -t a fv deklarálásnál, akkor bindolni kell
-    this.handleChangeAddress = this.handleChangeAddress.bind(this);
-  }
+
+    valami = () => {
+
+      return [1, 2, 3, 4].map(async (value) => {
+        const v = await this.asyncThing(value);
+        return v * 2;
+      });
+
+    };
+  */
+
+  // példa aszinkron függvény
 
   // ez arra van, ha begépelsz valamit, akkor változzon a beírt szöveg
   handleChangeAddress(e) {
@@ -120,6 +159,36 @@ class MapDemoContainer extends Component {
     });
   }
 
+  // x sec múlva visszaadja az eredményt a callbackFv-nek
+  exampleAsyncFunction(waitSec, callbackFv) {
+
+    try {
+      // ha itt dobsz hibát, akkor a külső catch
+      // throw new Error('Bottom catch');
+
+      // a setTimeout x sec múlva kezdi csak el a tartalma feldolgozását
+      setTimeout(() => {
+        // ha itt dobsz hibát nem kapja el senki
+        // throw new Error('Uncaught Error');
+
+        try {
+          // ha itt dobsz hibát, akkor a közvetlenül alatta lévő kapja el
+          // throw new Error('Inside catch');
+
+          // x sec múlva visszahív erre
+          const res = `wait ${waitSec} sec`;
+          callbackFv(null, res);
+
+        } catch (err) {
+          callbackFv(err, null);
+        }
+      }, waitSec);
+    } catch (err) {
+      // ha hiba van, akkor ide
+      callbackFv(err);
+    }
+
+  }
 
   render() {
     return (
@@ -132,6 +201,7 @@ class MapDemoContainer extends Component {
                onChange={this.handleChangeAddress}
                className="form-control"/>
         <button className='btn btn-success' onClick={() => this.useGoogleApi()}>Search</button>
+        <button className='btn btn-success' onClick={() => this.valalmi1()}>Valami</button>
         <h4>Result: {this.state.gResponse}</h4>
       </div>
     );
