@@ -16,8 +16,10 @@ class MapDemoContainer extends Component {
     // this.gMapsClient = gmaps.createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
 
 
+    const myGoogleAPIKey = { key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' };
+
     // vagy akár így, közletlenül behúzni
-    this.gMapsClient = require('@google/maps').createClient({ key: 'AIzaSyBbzH2sZTViqhwAYckpLnWQh_AQIKvYlG8' });
+    this.gMapsClient = require('@google/maps').createClient(myGoogleAPIKey);
 
 
     // komponensem belső állapotok
@@ -194,7 +196,6 @@ class MapDemoContainer extends Component {
     });
   };
 
-
   promiseExample = () => {
 
     // 5 sec alatt fut le
@@ -213,30 +214,78 @@ class MapDemoContainer extends Component {
   };
 
 
-  /*
-  valami = () => {
-
-    return [1, 2, 3, 4].map(async (value) => {
-      const v = await this.asyncThing(value);
-      return v * 2;
-    });
+  promiseAllExample = () => {
+    // a then-ben a res egy tömb lesz, [3000, 4000, 2000] értékekkel. Az egész 4 sec alatt fut le.
+    Promise.all([
+      this.asyncThing(3000),
+      this.asyncThing(4000),
+      this.asyncThing(2000)]
+    ).then(res => console.log(res)).catch(err => console.log(err));
 
   };
-*/
 
 
-  /*
-    Promise.all([this.valami()]).then(values => {
+  // ***********************************************************************************************
+  // példa az async-await használatára
+  // ***********************************************************************************************
 
-     onsole.log(values[0][0].then(eredm => console.log(eredm)).catch(err => console.log(err)));
 
-    });
-*/
+  // 6 sec múlva ad vissza eredményt
+  realAsyncFunction6 = async () => {
+    const p_a = await this.asyncThing(3000);
+    // csak akkor kezdődik el feldolgozás, ha a p_a-nak már van értéke
+    const p_b = await this.asyncThing(3000);
+
+    // mire ideér, itt már értékek vannak
+    return p_a + p_b;
+
+  };
+
+  // 3 sec múlva ad vissza eredményt
+  realAsyncFunction3 = async () => {
+    // először csak kijelölöm, hogy mit csináljon
+    const p_a = this.asyncThing(3000);
+    const p_b = this.asyncThing(3000);
+
+    // csak akkor return-ol, ha lesznek értékek
+    // kb olyan ez mint a Promise.all
+    return await p_a + await p_b;
+
+  };
+
+
+  // rögtön ad eredményt
+  realAsyncFunction0 = async () => {
+    const p_a = this.asyncThing(3000);
+    const p_b = this.asyncThing(3000);
+
+    // ez lesz az eredmény: [object Promise][object Promise]
+    return p_a + p_b;
+
+  };
+
+
+  asyncAwaitExample = () => {
+
+    this.realAsyncFunction3().then(res => console.log(`6 sec ${res}`))
+      .catch(err => console.log(err));
+
+    this.realAsyncFunction6().then(res => console.log(`3 sec ${res}`))
+      .catch(err => console.log(err));
+
+  };
 
 
   render() {
     return (
       <div className='container'>
+        <button className='btn btn-info' onClick={() => this.callBackExample()}>Callback</button>
+        <button className='btn btn-info' onClick={() => this.promiseExample()}>Promise</button>
+        <button className='btn btn-info' onClick={() => this.promiseAllExample()}>Promise.All
+        </button>
+        <button className='btn btn-info' onClick={() => this.asyncAwaitExample()}>Async-await
+        </button>
+        <br/>
         <h1>Map Demo page</h1>
         <input type="text"
                required="required"
@@ -245,8 +294,6 @@ class MapDemoContainer extends Component {
                onChange={this.handleChangeAddress}
                className="form-control"/>
         <button className='btn btn-success' onClick={() => this.useGoogleApi()}>Search</button>
-        <button className='btn btn-success' onClick={() => this.callBackExample()}>Callback</button>
-        <button className='btn btn-success' onClick={() => this.promiseExample()}>Promise</button>
         <h4>Result: {this.state.gResponse}</h4>
       </div>
     );
