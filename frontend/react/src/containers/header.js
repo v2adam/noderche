@@ -27,10 +27,10 @@ class Header extends React.Component {
 
     return (
       <header>
+        <LoadingBar showFastActions/>
         <h4>{this.props.loadingBar}</h4>
         <h4>Current user: {this.props.currentUser.username}</h4>
         {loginLogoutBtn}
-        <LoadingBar showFastActions/>
         <NavBar isAuthenticated = {this.props.isAuthenticated}/>
       </header>
     )
