@@ -19,3 +19,15 @@ export const FETCH_USA_ZIP_FAIL = 'FETCH_USA_ZIP_FAIL';
 
 export const FETCH_SECRET_USERS_SUCCESS = 'FETCH_SECRET_USERS_SUCCESS';
 export const FETCH_SECRET_USERS_FAIL = 'FETCH_SECRET_USERS_FAIL';
+
+
+export const SAVE_SEARCH_HISTORY = 'SAVE_SEARCH_HISTORY'; // cím keresés naplózása
+export const SAVE_SEARCH_HISTORY_FAIL = 'SAVE_SEARCH_HISTORY_FAIL'; // cím keresés naplózása hiba
+
+export const DELETE_SEARCH_HISTORY = 'DELETE_SEARCH_HISTORY'; // cím törlése
+export const DELETE_SEARCH_HISTORY_FAIL = 'DELETE_SEARCH_HISTORY_FAIL'; // cím törlése hiba
+
+export const LIST_SEARCH_HISTORY = 'LIST_SEARCH_HISTORY'; // címek listázása
+export const LIST_SEARCH_HISTORY_FAIL = 'LIST_SEARCH_HISTORY_FAIL'; // címek listázása hiba
+
+

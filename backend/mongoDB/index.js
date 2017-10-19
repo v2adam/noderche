@@ -18,9 +18,11 @@ in order to define models, run queries, etc.
 
 */
 
-
 // a connection-t használom
-const db = mongoose.connect(databaseUri).connection;
+mongoose.connect(databaseUri);
+
+
+const db = mongoose.connection;
 
 // a db néhány eseményére reagálás
 db.on('error', console.error.bind(console, 'connection error:'));

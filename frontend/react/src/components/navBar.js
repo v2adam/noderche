@@ -32,6 +32,7 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/about'>About</NavLink></li>
             {secretMenu}
             <li><NavLink activeClassName='active' to='/mapdemo'>Map Demo</NavLink></li>
+            <li><NavLink activeClassName='active' to='/firstexample'>First Complex Example</NavLink></li>
           </ul>
         </div>
       </nav>

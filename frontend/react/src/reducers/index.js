@@ -5,6 +5,7 @@ import { routerReducer } from 'react-router-redux';
 import userReducer from './userReducer';
 import dummyDataSetReducer from './dummyDataSetReducer';
 import authReducer from './authReducer';
+import firstExampleReducer from './firstExample/firstExampleReducer';
 
 
 // ez a combineReducer, ezt adom át a store-nak
@@ -15,6 +16,7 @@ export default combineReducers({
   users: userReducer,
   usaZip: dummyDataSetReducer,
   currentUser: authReducer,
+  firstExample: firstExampleReducer,
   // ezek itt a behúzott csomagoknak kellenek
   loadingBar: loadingBarReducer,
   router: routerReducer

@@ -20,6 +20,7 @@ import UrlParamComponent from './components/urlParamComponent';
 import CommentDisplay from './components/statelessComponent';
 import ChartDemoContainer from './containers/chartDemoContainer';
 import MapDemoContainer from './containers/mapDemoContainer';
+import FirstExampleMain from './containers/firstExample/firstExampleContainer';
 
 //olyan mint az angularban az app.component
 //ez a főkomponens, ide rakni a route-okat
@@ -43,7 +44,7 @@ class App extends Component {
           <Route path='/asd' component={CommentDisplay} valami='itt'/>
           <Route path='/chartdemo' component={ChartDemoContainer}/>
           <Route path='/mapdemo' component={MapDemoContainer}/>
-
+          <Route path='/firstexample' component={FirstExampleMain}/>
           <Route path="/valami/:id"
                  component={UrlParamComponent}/> {/* url-ben átadható paraméter*/}
 

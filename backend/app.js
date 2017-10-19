@@ -21,6 +21,7 @@ const RateLimit = require('express-rate-limit');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const dummyData = require('./routes/dummyData');
+const firstExample = require('./routes/firstExample');
 
 const app = express();
 
@@ -63,6 +64,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/users', apiLimiter, users);
 
 app.use('/api/v1/dummy', apiLimiter, dummyData);
+
+app.use('/api/v1/first', apiLimiter, firstExample);
+
 
 // főoldal a gyökérre passzol
 app.use('/', index);
