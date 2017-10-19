@@ -42,7 +42,7 @@ class SearchAddress extends Component {
         const result = await promiseGMapsClient({ address: this.state.address });
         this.setState({ gResponse: JSON.stringify(result) });
         // elmentem a store-ba a keresési kifejezést
-        this.props.saveHistorySearch(this.state.address);
+        this.props.saveHistorySearch({address: this.state.address});
       } else {
         this.setState({ gResponse: '' });
       }
