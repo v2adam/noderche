@@ -3,7 +3,8 @@ const SearchHistoryModel = require('../../mongoDB/models/firstExample/searchHist
 // select
 const listAll = async (req, res, next) => {
   try {
-    const query = SearchHistoryModel.find({ address: { $regex: 'ros' } })
+    // like a find-ban { address: { $regex: 'város' } }
+    const query = SearchHistoryModel.find()
       .select('searchId address user -_id')
       .where('user').eq(req.currentUser.username)
       .where('searchId').gt(2)

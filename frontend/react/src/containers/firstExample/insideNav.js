@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import About from '../../components/about';
 import SearchAddress from './searchAddress';
+import HistoryAddress from './historyAddress';
 
 export default class MenuExampleTabularOnLeft extends Component {
   state = {
@@ -9,6 +10,7 @@ export default class MenuExampleTabularOnLeft extends Component {
   };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
 
   render() {
     const { activeItem } = this.state;
@@ -24,6 +26,10 @@ export default class MenuExampleTabularOnLeft extends Component {
         content = <About/>;
         break;
 
+      case 'history':
+        content = <HistoryAddress/>;
+        break;
+
       default:
         content = <h4>Nincs itt semmi</h4>;
         break;
@@ -37,9 +43,10 @@ export default class MenuExampleTabularOnLeft extends Component {
           <Menu fluid vertical tabular>
             <Menu.Item name='search' active={activeItem === 'search'}
                        onClick={this.handleItemClick}/>
-            <Menu.Item name='about' active={activeItem === 'about'} onClick={this.handleItemClick}/>
-            <Menu.Item name='companies' active={activeItem === 'companies'}
+            <Menu.Item name='history' active={activeItem === 'history'}
                        onClick={this.handleItemClick}/>
+            <Menu.Item name='about' active={activeItem === 'about'} onClick={this.handleItemClick}/>
+
             <Menu.Item name='links' active={activeItem === 'links'} onClick={this.handleItemClick}/>
           </Menu>
         </Grid.Column>
