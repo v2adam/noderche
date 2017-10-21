@@ -1,4 +1,8 @@
-import { LIST_SEARCH_HISTORY, SAVE_SEARCH_HISTORY } from '../../actions/actionType/index';
+import {
+  DELETE_SEARCH_HISTORY,
+  LIST_SEARCH_HISTORY,
+  SAVE_SEARCH_HISTORY
+} from '../../actions/actionType/index';
 
 
 const initState = {
@@ -15,6 +19,15 @@ export default function reducer(state = initState, action) {
 
     case LIST_SEARCH_HISTORY: {
       return { ...state, historyAddress: action.payload };
+    }
+
+    // store-ból kidobom azt az id-t, amit már töröltem a DB-ből
+    case DELETE_SEARCH_HISTORY: {
+      return {
+        ...state,
+        historyAddress: state.historyAddress
+          .filter(one => one._id !== action.payload.id)
+      };
     }
 
     default:

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
+  DELETE_SEARCH_HISTORY,
+  DELETE_SEARCH_HISTORY_FAIL,
   LIST_SEARCH_HISTORY,
   LIST_SEARCH_HISTORY_FAIL,
   SAVE_SEARCH_HISTORY,
@@ -8,7 +10,7 @@ import {
 } from '../actionType/index';
 
 
-// lementem a DB-be a keresési előzményeket
+// mentés db-be
 export function saveHistorySearch(data) {
   return (dispatch) => {
     dispatch(showLoading());
@@ -32,19 +34,12 @@ export function saveHistorySearch(data) {
   };
 }
 
-
+// adatok letöltése
 export function listHistorySearch() {
   return (dispatch) => {
     dispatch(showLoading());
 
-    const opt = {
-      mode: 'CORS',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
-    axios.get('/api/v1/first/list', opt)
+    axios.get('/api/v1/first/list')
       .then((resp) => {
         dispatch({ type: LIST_SEARCH_HISTORY, payload: resp.data });
         dispatch(hideLoading());
@@ -57,10 +52,24 @@ export function listHistorySearch() {
 }
 
 
-/*
-export function listHistorySearch(data) {
+// törlés a megadott id alapján
+export function deleteHistorySearch(id) {
   return (dispatch) => {
+    dispatch(showLoading());
 
+    axios.delete(`/api/v1/first/delete/${id}`)
+      .then((resp) => {
+        if (resp.status === 204) {
+          dispatch({ type: DELETE_SEARCH_HISTORY, payload: { id } });
+        } else {
+          dispatch({ type: DELETE_SEARCH_HISTORY_FAIL, payload: resp.status });
+        }
+        dispatch(hideLoading());
+      })
+      .catch((err) => {
+        dispatch({ type: DELETE_SEARCH_HISTORY_FAIL, payload: err });
+        dispatch(hideLoading());
+      });
   };
 }
-*/
+

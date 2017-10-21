@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'semantic-ui-react';
 
-import { listHistorySearch } from '../../actions/firstExample/firstExampleActions';
+import {
+  deleteHistorySearch,
+  listHistorySearch
+} from '../../actions/firstExample/firstExampleActions';
 
 class HistoryAddress extends Component {
 
@@ -16,11 +19,18 @@ class HistoryAddress extends Component {
     this.props.listHistorySearch();
   }
 
+
+  deleteItem(id) {
+    this.props.deleteHistorySearch(id);
+  }
+
   // lista tartalmát betölti
   createList() {
     return <List>
       {this.props.historyAddress.map(one =>
-        <List.Item key={one.searchId}>{one.address}</List.Item>)
+        <List.Item key={one._id}>{one.address}
+          <button className='btn btn-danger' onClick={() => this.deleteItem(one._id)}>x</button>
+        </List.Item>)
       }
     </List>
   }
@@ -40,7 +50,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ listHistorySearch: listHistorySearch }, dispatch);
+  return bindActionCreators({
+    listHistorySearch: listHistorySearch,
+    deleteHistorySearch: deleteHistorySearch
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryAddress);

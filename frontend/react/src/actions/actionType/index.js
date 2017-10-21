@@ -29,5 +29,3 @@ export const DELETE_SEARCH_HISTORY_FAIL = 'DELETE_SEARCH_HISTORY_FAIL'; // cím 
 
 export const LIST_SEARCH_HISTORY = 'LIST_SEARCH_HISTORY'; // címek listázása
 export const LIST_SEARCH_HISTORY_FAIL = 'LIST_SEARCH_HISTORY_FAIL'; // címek listázása hiba
-
-

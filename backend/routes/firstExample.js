@@ -16,7 +16,7 @@ router.get('/list', listAll);
 router.post('/save', saveOne);
 
 // törlés
-router.delete('/delete', deleteOne);
+router.delete('/delete/:id', deleteOne);
 
 
 module.exports = router;
