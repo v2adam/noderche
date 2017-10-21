@@ -1,4 +1,5 @@
 const SearchHistoryModel = require('../../mongoDB/models/firstExample/searchHistoryModel');
+const PostModel = require('../../mongoDB/models/firstExample/postModel');
 
 const listAll = async (req, res, next) => {
   try {
@@ -93,8 +94,44 @@ const deleteOne = async (req, res, next) => {
 };
 
 
+// komment hozzáadása
+const postPost = async (req, res, next) => {
+  const saveThis = {
+    text: req.body.text,
+    tags: req.body.tags.split(';'),
+    _user: req.currentUser._id
+  };
+
+  try {
+    const newComment = new PostModel(saveThis);
+    await newComment.save();
+    res.status(201).send('Saved');
+  } catch (err) {
+    res.status(500).send('Error when insert');
+  }
+};
+
+
+const listPosts = async (req, res, next) => {
+  try {
+    const query = PostModel
+      .find({})
+      .populate('_user')
+      .where('_user').eq(req.currentUser._id)
+      .sort('created_ts');
+
+    const data = await query.exec();
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send('Error when download list');
+  }
+};
+
+
 module.exports = {
   listAll,
   saveOne,
-  deleteOne
+  deleteOne,
+  postPost,
+  listPosts
 };

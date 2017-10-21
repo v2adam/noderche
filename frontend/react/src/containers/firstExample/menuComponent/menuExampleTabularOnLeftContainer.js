@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
-import About from '../../components/about';
-import SearchAddress from './searchAddress';
-import HistoryAddress from './historyAddress';
+import About from '../../../components/about';
+import SearchAddress from './search/search';
+import HistoryContainer from './history/history';
+import PostsContainer from './comment/postsContainer';
 
+// ennek a container-nek az a dolga, hogy a kiválasztott menü tartalmát megjeleníti
 export default class MenuExampleTabularOnLeft extends Component {
   state = {
     activeItem: 'search'
@@ -22,13 +24,18 @@ export default class MenuExampleTabularOnLeft extends Component {
         content = <SearchAddress/>;
         break;
 
+      case 'history':
+        content = <HistoryContainer/>;
+        break;
+
+      case 'posts':
+        content = <PostsContainer/>;
+        break;
+
       case 'about':
         content = <About/>;
         break;
 
-      case 'history':
-        content = <HistoryAddress/>;
-        break;
 
       default:
         content = <h4>Nincs itt semmi</h4>;
@@ -45,9 +52,10 @@ export default class MenuExampleTabularOnLeft extends Component {
                        onClick={this.handleItemClick}/>
             <Menu.Item name='history' active={activeItem === 'history'}
                        onClick={this.handleItemClick}/>
+            <Menu.Item name='posts' active={activeItem === 'posts'}
+                       onClick={this.handleItemClick}/>
             <Menu.Item name='about' active={activeItem === 'about'} onClick={this.handleItemClick}/>
 
-            <Menu.Item name='links' active={activeItem === 'links'} onClick={this.handleItemClick}/>
           </Menu>
         </Grid.Column>
 

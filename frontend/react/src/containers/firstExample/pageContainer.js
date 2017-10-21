@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MenuExampleTabularOnLeft from './insideNav';
+import MenuExampleTabularOnLeft from './menuComponent/menuExampleTabularOnLeftContainer';
 import 'semantic-ui-css/semantic.min.css';
 
+// ez a container foglalja össze az egész oldalt
 class FirstExampleMain extends Component {
 
   constructor() {

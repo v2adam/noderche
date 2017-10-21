@@ -20,7 +20,7 @@ import UrlParamComponent from './components/urlParamComponent';
 import CommentDisplay from './components/statelessComponent';
 import ChartDemoContainer from './containers/chartDemoContainer';
 import MapDemoContainer from './containers/mapDemoContainer';
-import FirstExampleMain from './containers/firstExample/firstExampleContainer';
+import FirstExampleMain from './containers/firstExample/pageContainer';
 
 //olyan mint az angularban az app.component
 //ez a főkomponens, ide rakni a route-okat

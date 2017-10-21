@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const { authenticate } = require('../server_logic/userAuth');
-const { listAll, saveOne, deleteOne } = require('../server_logic/firstExample/firstExample');
+const { listAll, saveOne, deleteOne, postPost, listPosts } = require('../server_logic/firstExample/firstExample');
 
 
 router.use(authenticate);
@@ -17,6 +17,13 @@ router.post('/save', saveOne);
 
 // törlés
 router.delete('/delete/:id', deleteOne);
+
+
+// komment hozzáadása
+router.post('/postComment', postPost);
+
+// saját kommentek listázása
+router.get('/listPosts', listPosts);
 
 
 module.exports = router;

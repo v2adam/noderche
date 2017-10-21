@@ -29,3 +29,6 @@ export const DELETE_SEARCH_HISTORY_FAIL = 'DELETE_SEARCH_HISTORY_FAIL'; // cím 
 
 export const LIST_SEARCH_HISTORY = 'LIST_SEARCH_HISTORY'; // címek listázása
 export const LIST_SEARCH_HISTORY_FAIL = 'LIST_SEARCH_HISTORY_FAIL'; // címek listázása hiba
+
+export const FETCH_MY_COMMENTS = 'FETCH_MY_COMMENTS';
+export const FETCH_MY_COMMENTS_FAIL = 'FETCH_MY_COMMENTS_FAIL';

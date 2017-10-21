@@ -1,5 +1,6 @@
 import {
   DELETE_SEARCH_HISTORY,
+  FETCH_MY_COMMENTS,
   LIST_SEARCH_HISTORY,
   SAVE_SEARCH_HISTORY
 } from '../../actions/actionType/index';
@@ -7,7 +8,8 @@ import {
 
 const initState = {
   lastSearchedAddress: {},
-  historyAddress: []
+  historyAddress: [],
+  myComments: []
 };
 
 
@@ -28,6 +30,10 @@ export default function reducer(state = initState, action) {
         historyAddress: state.historyAddress
           .filter(one => one._id !== action.payload.id)
       };
+    }
+
+    case FETCH_MY_COMMENTS: {
+      return { ...state, myComments: action.payload };
     }
 
     default:

@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'semantic-ui-react';
-
 import {
   deleteHistorySearch,
   listHistorySearch
-} from '../../actions/firstExample/firstExampleActions';
+} from '../../../../actions/firstExample/firstExampleActions';
 
-class HistoryAddress extends Component {
+class HistoryContainer extends Component {
 
   constructor() {
     super();
@@ -35,6 +34,7 @@ class HistoryAddress extends Component {
     </List>
   }
 
+
   render() {
     return (
       <div className='container'>
@@ -56,4 +56,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryAddress);
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryContainer);

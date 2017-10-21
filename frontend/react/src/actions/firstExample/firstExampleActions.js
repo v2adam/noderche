@@ -3,6 +3,8 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
   DELETE_SEARCH_HISTORY,
   DELETE_SEARCH_HISTORY_FAIL,
+  FETCH_MY_COMMENTS,
+  FETCH_MY_COMMENTS_FAIL,
   LIST_SEARCH_HISTORY,
   LIST_SEARCH_HISTORY_FAIL,
   SAVE_SEARCH_HISTORY,
@@ -73,3 +75,19 @@ export function deleteHistorySearch(id) {
   };
 }
 
+// törlés a megadott id alapján
+export function listPosts() {
+  return (dispatch) => {
+    dispatch(showLoading());
+
+    axios.get('/api/v1/first/listPosts')
+      .then((resp) => {
+        dispatch({ type: FETCH_MY_COMMENTS, payload: resp.data });
+        dispatch(hideLoading());
+      })
+      .catch((err) => {
+        dispatch({ type: FETCH_MY_COMMENTS_FAIL, payload: err });
+        dispatch(hideLoading());
+      });
+  };
+}
