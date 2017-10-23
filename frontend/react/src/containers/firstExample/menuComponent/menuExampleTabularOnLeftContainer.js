@@ -5,8 +5,10 @@ import SearchAddress from './search/search';
 import HistoryContainer from './history/history';
 import PostsContainer from './comment/postsContainer';
 
-// ennek a container-nek az a dolga, hogy a kiválasztott menü tartalmát megjeleníti
+// ennek a componentnek-nek az a dolga, hogy a kiválasztott menü tartalmát megjeleníti
 export default class MenuExampleTabularOnLeft extends Component {
+
+  // a belső állapota egyszerű, csak az UI állapota
   state = {
     activeItem: 'search'
   };
@@ -35,7 +37,6 @@ export default class MenuExampleTabularOnLeft extends Component {
       case 'about':
         content = <About/>;
         break;
-
 
       default:
         content = <h4>Nincs itt semmi</h4>;

@@ -32,3 +32,6 @@ export const LIST_SEARCH_HISTORY_FAIL = 'LIST_SEARCH_HISTORY_FAIL'; // címek li
 
 export const FETCH_MY_COMMENTS = 'FETCH_MY_COMMENTS';
 export const FETCH_MY_COMMENTS_FAIL = 'FETCH_MY_COMMENTS_FAIL';
+
+export const ADD_POST = 'ADD_POST';
+export const ADD_POST_FAIL = 'ADD_POST_FAIL';

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
+  ADD_POST,
+  ADD_POST_FAIL,
   DELETE_SEARCH_HISTORY,
   DELETE_SEARCH_HISTORY_FAIL,
   FETCH_MY_COMMENTS,
@@ -87,6 +89,24 @@ export function listPosts() {
       })
       .catch((err) => {
         dispatch({ type: FETCH_MY_COMMENTS_FAIL, payload: err });
+        dispatch(hideLoading());
+      });
+  };
+}
+
+
+export function addPost(data) {
+  return (dispatch) => {
+    dispatch(showLoading());
+
+    axios.post('/api/v1/first/posts', JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } })
+      .then((resp) => {
+        dispatch({ type: ADD_POST, payload: resp.data });
+        dispatch(listPosts());
+        dispatch(hideLoading());
+      })
+      .catch((err) => {
+        dispatch({ type: ADD_POST_FAIL, payload: err });
         dispatch(hideLoading());
       });
   };

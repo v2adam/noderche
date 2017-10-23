@@ -98,7 +98,7 @@ const deleteOne = async (req, res, next) => {
 const postPost = async (req, res, next) => {
   const saveThis = {
     text: req.body.text,
-    tags: req.body.tags.split(';'),
+    // tags: req.body.tags.split(';'),
     _user: req.currentUser._id
   };
 

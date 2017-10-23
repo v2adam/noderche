@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ItemExampleItems from './postListComponent';
-import { listPosts } from '../../../../actions/firstExample/firstExampleActions';
+import { addPost, listPosts } from '../../../../actions/firstExample/firstExampleActions';
+import PostArea from './postsAddComponent';
 
 class PostsContainer extends Component {
 
@@ -15,14 +16,11 @@ class PostsContainer extends Component {
   }
 
 
-  historyItems() {
-    return <ItemExampleItems content={this.props.myComments}/>;
-  }
-
   render() {
     return (
       <div className='container'>
-        {this.historyItems()}
+        <ItemExampleItems content={this.props.myComments}/>
+        <PostArea addPost={this.props.addPost}/>
       </div>
     );
   }
@@ -34,7 +32,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ listPosts: listPosts }, dispatch);
+  return bindActionCreators({ listPosts: listPosts, addPost: addPost }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
