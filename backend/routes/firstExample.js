@@ -5,25 +5,26 @@ const router = express.Router();
 const { authenticate } = require('../server_logic/userAuth');
 const { listAll, saveOne, deleteOne, postPost, listPosts } = require('../server_logic/firstExample/firstExample');
 
+// végpont prefix: /api/v1/first
 
 router.use(authenticate);
 
 
-// listzázás
-router.get('/list', listAll);
+// keresési előzmény listázása
+router.get('/history', listAll);
 
-// logolás
-router.post('/save', saveOne);
+// keresési kulcsszó mentése
+router.post('/history', saveOne);
 
-// törlés
-router.delete('/delete/:id', deleteOne);
+// megadott keresési előzmény törlése
+router.delete('/history/:id', deleteOne);
 
 
-// komment hozzáadása
-router.post('/postComment', postPost);
+// post hozzáadása
+router.post('/posts', postPost);
 
-// saját kommentek listázása
-router.get('/listPosts', listPosts);
+// saját postok listázása
+router.get('/posts', listPosts);
 
 
 module.exports = router;

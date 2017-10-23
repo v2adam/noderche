@@ -15,15 +15,17 @@ const initState = {
 
 export default function reducer(state = initState, action) {
   switch (action.type) {
+    // keresési előzmény mentése
     case SAVE_SEARCH_HISTORY: {
       return { ...state, lastSearchedAddress: action.payload };
     }
 
+    // keresési előzmény listázása
     case LIST_SEARCH_HISTORY: {
       return { ...state, historyAddress: action.payload };
     }
 
-    // store-ból kidobom azt az id-t, amit már töröltem a DB-ből
+    // keresési előzmény törlése
     case DELETE_SEARCH_HISTORY: {
       return {
         ...state,
@@ -32,6 +34,7 @@ export default function reducer(state = initState, action) {
       };
     }
 
+    // post-jaim listázása
     case FETCH_MY_COMMENTS: {
       return { ...state, myComments: action.payload };
     }

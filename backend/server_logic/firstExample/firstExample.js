@@ -94,7 +94,7 @@ const deleteOne = async (req, res, next) => {
 };
 
 
-// komment hozzáadása
+// post hozzáadása
 const postPost = async (req, res, next) => {
   const saveThis = {
     text: req.body.text,
@@ -107,11 +107,11 @@ const postPost = async (req, res, next) => {
     await newComment.save();
     res.status(201).send('Saved');
   } catch (err) {
-    res.status(500).send('Error when insert');
+    res.status(500).send('Error when insert new post');
   }
 };
 
-
+// saját postok listázása
 const listPosts = async (req, res, next) => {
   try {
     const query = PostModel
@@ -123,7 +123,7 @@ const listPosts = async (req, res, next) => {
     const data = await query.exec();
     res.status(200).send(data);
   } catch (err) {
-    res.status(500).send('Error when download list');
+    res.status(500).send('Error while downloading posts');
   }
 };
 

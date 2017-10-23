@@ -12,19 +12,18 @@ import {
 } from '../actionType/index';
 
 
-// mentés db-be
+// keresési kulcsszó mentése
 export function saveHistorySearch(data) {
   return (dispatch) => {
     dispatch(showLoading());
 
     const opt = {
-      mode: 'CORS',
       headers: {
         'Content-Type': 'application/json'
       }
     };
 
-    axios.post('/api/v1/first/save', JSON.stringify(data), opt)
+    axios.post('/api/v1/first/history', JSON.stringify(data), opt)
       .then(() => {
         dispatch({ type: SAVE_SEARCH_HISTORY, payload: { data } });
         dispatch(hideLoading());
@@ -36,12 +35,12 @@ export function saveHistorySearch(data) {
   };
 }
 
-// adatok letöltése
+// keresési előzmény listázása
 export function listHistorySearch() {
   return (dispatch) => {
     dispatch(showLoading());
 
-    axios.get('/api/v1/first/list')
+    axios.get('/api/v1/first/history')
       .then((resp) => {
         dispatch({ type: LIST_SEARCH_HISTORY, payload: resp.data });
         dispatch(hideLoading());
@@ -54,13 +53,14 @@ export function listHistorySearch() {
 }
 
 
-// törlés a megadott id alapján
+// megadott keresési előzmény törlése
 export function deleteHistorySearch(id) {
   return (dispatch) => {
     dispatch(showLoading());
 
-    axios.delete(`/api/v1/first/delete/${id}`)
+    axios.delete(`/api/v1/first/history/${id}`)
       .then((resp) => {
+        // a sikeres törlés kódja a 204
         if (resp.status === 204) {
           dispatch({ type: DELETE_SEARCH_HISTORY, payload: { id } });
         } else {
@@ -75,12 +75,12 @@ export function deleteHistorySearch(id) {
   };
 }
 
-// törlés a megadott id alapján
+// saját postok listázása
 export function listPosts() {
   return (dispatch) => {
     dispatch(showLoading());
 
-    axios.get('/api/v1/first/listPosts')
+    axios.get('/api/v1/first/posts')
       .then((resp) => {
         dispatch({ type: FETCH_MY_COMMENTS, payload: resp.data });
         dispatch(hideLoading());
