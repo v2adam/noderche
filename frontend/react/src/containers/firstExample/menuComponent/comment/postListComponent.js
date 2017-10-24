@@ -1,5 +1,5 @@
 import React from 'react';
-import { Item } from 'semantic-ui-react';
+import { Button, Item } from 'semantic-ui-react';
 
 // dummy, props-okat kap, és azt jeleníti meg
 const ItemExampleItems = (props) => (
@@ -17,6 +17,11 @@ const ItemExampleItems = (props) => (
           </Item.Description>
           <Item.Extra>{one.tags}</Item.Extra>
         </Item.Content>
+
+        {props.currentUserId === one._user.userId ?
+          <Button color='red' onClick={() => props.deletePost(one._id)}>x</Button> : <div/>}
+
+
       </Item>
     )}
   </Item.Group>

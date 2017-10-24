@@ -3,6 +3,8 @@ import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import {
   ADD_POST,
   ADD_POST_FAIL,
+  DELETE_POST,
+  DELETE_POST_FAIL,
   DELETE_SEARCH_HISTORY,
   DELETE_SEARCH_HISTORY_FAIL,
   FETCH_MY_COMMENTS,
@@ -107,6 +109,30 @@ export function addPost(data) {
       })
       .catch((err) => {
         dispatch({ type: ADD_POST_FAIL, payload: err });
+        dispatch(hideLoading());
+      });
+  };
+}
+
+
+// megadott keresési előzmény törlése
+export function deletePost(id) {
+  return (dispatch) => {
+    dispatch(showLoading());
+
+    axios.delete(`/api/v1/first/posts/${id}`)
+      .then((resp) => {
+        // a sikeres törlés kódja a 204
+        if (resp.status === 204) {
+          dispatch({ type: DELETE_POST, payload: { id } });
+          dispatch(listPosts());
+        } else {
+          dispatch({ type: DELETE_POST_FAIL, payload: resp.status });
+        }
+        dispatch(hideLoading());
+      })
+      .catch((err) => {
+        dispatch({ type: DELETE_POST, payload: err });
         dispatch(hideLoading());
       });
   };

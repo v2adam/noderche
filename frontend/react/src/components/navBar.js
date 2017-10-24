@@ -9,10 +9,12 @@ export default class NavBar extends Component {
   render() {
 
     let secretMenu = null;
+    let secretMenu2 = null;
 
     if (this.props.isAuthenticated) {
 
       secretMenu = <li><NavLink activeClassName='active' to='/secret'>Secret</NavLink></li>;
+      secretMenu2 = <li><NavLink activeClassName='active' to='/firstexample'>First Complex Example</NavLink></li>;
 
     }
 
@@ -32,7 +34,7 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/about'>About</NavLink></li>
             {secretMenu}
             <li><NavLink activeClassName='active' to='/mapdemo'>Map Demo</NavLink></li>
-            <li><NavLink activeClassName='active' to='/firstexample'>First Complex Example</NavLink></li>
+            {secretMenu2}
           </ul>
         </div>
       </nav>

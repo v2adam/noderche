@@ -27,6 +27,7 @@
     "ignore-loader": "^0.1.2",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
+    "path": "^0.12.7",
     "rc-upload": "^2.4.3",
     "react": "^15.6.2",
     "react-addons-css-transition-group": "^15.6.2",

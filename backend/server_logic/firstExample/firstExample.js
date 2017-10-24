@@ -117,7 +117,7 @@ const listPosts = async (req, res, next) => {
     const query = PostModel
       .find({})
       .populate('_user')
-      .where('_user').eq(req.currentUser._id)
+      //.where('_user').eq(req.currentUser._id)
       .sort('created_ts');
 
     const data = await query.exec();
@@ -128,10 +128,37 @@ const listPosts = async (req, res, next) => {
 };
 
 
+// törlésre példa
+const deleteOnePosts = async (req, res, next) => {
+  try {
+    const deleteId = req.params.id;
+
+    const query = PostModel.find({
+      _id: deleteId,
+      _user: req.currentUser._id
+    }).remove();
+
+    const removeResult = await query.exec();
+
+    // megvizsgálom, hogy hányat törölt
+    if (removeResult.result.n === 0) {
+      // ha nem törölt semmit, akkor nem is találta meg -> 404
+      res.sendStatus(404);
+    } else {
+      // sikeresen törölte
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    res.status(500).send('Error when deleting content');
+  }
+};
+
+
 module.exports = {
   listAll,
   saveOne,
   deleteOne,
   postPost,
-  listPosts
+  listPosts,
+  deleteOnePosts
 };

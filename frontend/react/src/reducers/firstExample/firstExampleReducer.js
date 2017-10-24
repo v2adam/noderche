@@ -1,8 +1,9 @@
 import {
+  DELETE_POST,
   DELETE_SEARCH_HISTORY,
   FETCH_MY_COMMENTS,
   LIST_SEARCH_HISTORY,
-  SAVE_SEARCH_HISTORY
+  SAVE_SEARCH_HISTORY,
 } from '../../actions/actionType/index';
 
 
@@ -38,6 +39,17 @@ export default function reducer(state = initState, action) {
     case FETCH_MY_COMMENTS: {
       return { ...state, myComments: action.payload };
     }
+
+
+    // keresési előzmény törlése
+    case DELETE_POST: {
+      return {
+        ...state,
+        myComments: state.myComments
+          .filter(one => one._id !== action.payload.id)
+      };
+    }
+
 
     default:
       return state;

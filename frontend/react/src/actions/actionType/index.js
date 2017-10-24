@@ -35,3 +35,6 @@ export const FETCH_MY_COMMENTS_FAIL = 'FETCH_MY_COMMENTS_FAIL';
 
 export const ADD_POST = 'ADD_POST';
 export const ADD_POST_FAIL = 'ADD_POST_FAIL';
+
+export const DELETE_POST = 'DELETE_POST';
+export const DELETE_POST_FAIL = 'DELETE_POST_FAIL';

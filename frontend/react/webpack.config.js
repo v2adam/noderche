@@ -23,6 +23,7 @@ module.exports = {
       }
     ]
   },
+
   output: {
     path: `${__dirname}/public/`,
     filename: 'client.min.js',
@@ -32,6 +33,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true
   },
+
 
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),

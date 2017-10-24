@@ -44,7 +44,8 @@ class App extends Component {
           <Route path='/asd' component={CommentDisplay} valami='itt'/>
           <Route path='/chartdemo' component={ChartDemoContainer}/>
           <Route path='/mapdemo' component={MapDemoContainer}/>
-          <Route path='/firstexample' component={FirstExampleMain}/>
+          <PrivateRoute path="/firstexample" component={FirstExampleMain}
+                        isAuthenticated={this.props.isAuthenticated}/>
           <Route path="/valami/:id"
                  component={UrlParamComponent}/> {/* url-ben átadható paraméter*/}
 
