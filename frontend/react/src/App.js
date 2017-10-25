@@ -18,9 +18,9 @@ import SecretContainer from './containers/secretContainer';
 import PrivateRoute from './misc/privateRoute';
 import UrlParamComponent from './components/urlParamComponent';
 import CommentDisplay from './components/statelessComponent';
-import ChartDemoContainer from './containers/chartDemoContainer';
 import MapDemoContainer from './containers/mapDemoContainer';
 import FirstExampleMain from './containers/firstExample/pageContainer';
+import DashboardDemo from './containers/dashboardDemo';
 
 //olyan mint az angularban az app.component
 //ez a főkomponens, ide rakni a route-okat
@@ -42,14 +42,12 @@ class App extends Component {
           <PrivateRoute path="/secret" component={SecretContainer}
                         isAuthenticated={this.props.isAuthenticated}/>
           <Route path='/asd' component={CommentDisplay} valami='itt'/>
-          <Route path='/chartdemo' component={ChartDemoContainer}/>
           <Route path='/mapdemo' component={MapDemoContainer}/>
           <PrivateRoute path="/firstexample" component={FirstExampleMain}
                         isAuthenticated={this.props.isAuthenticated}/>
           <Route path="/valami/:id"
                  component={UrlParamComponent}/> {/* url-ben átadható paraméter*/}
-
-
+          <Route path='/dashboard_demo' component={DashboardDemo}/>
           <Route component={PageNotFound}/>
           {/* <Redirect from='/new_path' to='/new_path' /> lehet ilyet is belerakni*/}
 
