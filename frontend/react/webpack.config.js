@@ -24,6 +24,14 @@ module.exports = {
     ]
   },
 
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+    root: [
+      path.resolve('./src')
+    ]
+  },
+
+
   output: {
     path: `${__dirname}/public/`,
     filename: 'client.min.js',

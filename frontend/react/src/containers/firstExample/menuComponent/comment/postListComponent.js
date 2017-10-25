@@ -5,7 +5,7 @@ import { Button, Item } from 'semantic-ui-react';
 const ItemExampleItems = (props) => (
 
   <Item.Group>
-    {props.content.map(one =>
+    {props.content.forEach(one =>
       <Item key={one._id}>
         <Item.Image size='tiny'
                     src={one.imageUrl === undefined ? 'https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png' : one.imageUrl}/>
@@ -17,11 +17,8 @@ const ItemExampleItems = (props) => (
           </Item.Description>
           <Item.Extra>{one.tags}</Item.Extra>
         </Item.Content>
-
         {props.currentUserId === one._user.userId ?
           <Button color='red' onClick={() => props.deletePost(one._id)}>x</Button> : <div/>}
-
-
       </Item>
     )}
   </Item.Group>

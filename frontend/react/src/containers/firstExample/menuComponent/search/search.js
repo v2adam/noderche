@@ -62,7 +62,7 @@ class SearchAddress extends Component {
                value={this.state.address}
                onChange={this.handleChangeAddress}
                className="form-control"/>
-        <button className='btn btn-success' onClick={() => this.useGoogleApi()}>Search</button>
+        <button className='btn btn-success' onClick={this.useGoogleApi}>Search</button>
         <h4>Result: {this.state.gResponse}</h4>
       </div>
     );
