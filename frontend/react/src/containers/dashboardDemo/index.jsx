@@ -40,4 +40,4 @@ class SidebarLeftScaleDown extends Component {
   }
 }
 
-export default SidebarLeftScaleDown
+export default SidebarLeftScaleDown;

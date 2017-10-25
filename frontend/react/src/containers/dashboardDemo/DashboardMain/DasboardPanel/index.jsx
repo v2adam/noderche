@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { Grid, Responsive, Segment } from 'semantic-ui-react'
 
@@ -5,6 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import PieExample from './Charts/pie';
 import BarExample from './Charts/bar';
 import LineExample from './Charts/line';
+
 
 const dataPie = {
   labels: [
@@ -110,3 +112,47 @@ const DashboardPanel = (props) => (
 );
 
 export default DashboardPanel;
+*/
+
+
+import React from 'react'
+
+var ReactGridLayout = require('react-grid-layout');
+
+var MyFirstGrid = React.createClass({
+  render: function () {
+    // layout is an array of objects, see the demo for more complete usage
+    var layout = [
+      { i: 'yellow', x: 0, y: 0, w: 1, h: 2,},
+      { i: 'red', x: 1, y: 0, w: 3, h: 2 },
+      { i: 'green', x: 4, y: 0, w: 1, h: 2 },
+      { i: 'blue', x: 4, y: 0, w: 1, h: 2 },
+    ];
+    return (
+      <ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+        <div key="yellow">
+          <svg width="100" height="100">
+            <rect width="400" height="100" fill="yellow" />
+          </svg>
+        </div>
+        <div key="red">
+          <svg width="100" height="100">
+            <rect width="400" height="100" fill="red" />
+          </svg>
+        </div>
+        <div key="green">
+          <svg width="100" height="100">
+            <rect width="400" height="100" fill="green" />
+          </svg>
+        </div>
+        <div key="blue">
+          <svg width="100" height="100">
+            <rect width="400" height="100" fill="blue" />
+          </svg>
+        </div>
+      </ReactGridLayout>
+    )
+  }
+});
+
+export default MyFirstGrid;
