@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-
+//A táblázat soraiért felelős
 export class TableRow extends Component {
 
   render() {
