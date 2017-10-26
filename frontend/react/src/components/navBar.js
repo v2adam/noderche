@@ -30,9 +30,10 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/dummy2'>Dummy2</NavLink></li>
             <li><NavLink activeClassName='active' to='/chartdemo'>Chart Demo</NavLink></li>
             <li><NavLink activeClassName='active' to='/about'>About</NavLink></li>
+            <li><NavLink activeClassName='active' to='/filterDemo'>FilterAbleTable</NavLink></li>
             {secretMenu}
             <li><NavLink activeClassName='active' to='/mapdemo'>Map Demo</NavLink></li>
-          </ul>
+          </ul>FilterableDemoContainer
         </div>
       </nav>
     );
