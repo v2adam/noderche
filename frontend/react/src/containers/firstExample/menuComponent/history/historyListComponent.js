@@ -5,7 +5,7 @@ import { List } from 'semantic-ui-react';
 const HistoryList = (props) => (
 
   <List>
-    {props.content.forEach(one =>
+    {props.content.map(one =>
       <List.Item key={one._id}>{one.address}
         <button className='btn btn-danger' onClick={() => props.removeElement(one._id)}>x</button>
       </List.Item>

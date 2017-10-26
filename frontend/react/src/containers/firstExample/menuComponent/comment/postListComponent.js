@@ -5,7 +5,7 @@ import { Button, Item } from 'semantic-ui-react';
 const ItemExampleItems = (props) => (
 
   <Item.Group>
-    {props.content.forEach(one =>
+    {props.content.map(one =>
       <Item key={one._id}>
         <Item.Image size='tiny'
                     src={one.imageUrl === undefined ? 'https://upload.wikimedia.org/wikipedia/commons/0/09/Dummy_flag.png' : one.imageUrl}/>
