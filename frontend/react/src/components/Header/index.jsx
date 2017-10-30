@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from "../components/navBar";
+import NavBar from '../NavBar';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingBar from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
 
-import { logoutUser } from '../services/sign/Login/actions';
-import store from '../store';
+import { logoutUser } from '../../services/sign/Login/actions';
+import store from '../../store';
 
 class Header extends React.Component {
 
@@ -31,7 +31,7 @@ class Header extends React.Component {
         <h4>{this.props.loadingBar}</h4>
         <h4>Current user: {this.props.currentUser.username}</h4>
         {loginLogoutBtn}
-        <NavBar isAuthenticated = {this.props.isAuthenticated}/>
+        <NavBar isAuthenticated={this.props.isAuthenticated}/>
       </header>
     )
   }
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 
 // ezzel érem el az action-öket
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({logoutUser: logoutUser}, dispatch);
+  return bindActionCreators({ logoutUser: logoutUser }, dispatch);
 }
 
 // ezzel a kiajánlással egy store-ral összekötött komponensem lesz (smart componenet) => container !!!!

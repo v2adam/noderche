@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ItemExampleItems from './postListComponent';
+import ItemExampleItems from './components/PostsList';
 import {
   addPost,
   deletePost,
   listPosts
-} from '../../../../actions/firstExample/firstExampleActions';
-import PostArea from './postsAddComponent';
+} from '../../../../services/FirstComplexExample/actions';
+import PostArea from './components/PostsPost';
 
 class PostsContainer extends Component {
 

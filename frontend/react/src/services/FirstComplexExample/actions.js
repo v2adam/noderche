@@ -13,7 +13,7 @@ import {
   LIST_SEARCH_HISTORY_FAIL,
   SAVE_SEARCH_HISTORY,
   SAVE_SEARCH_HISTORY_FAIL
-} from '../actionType/index';
+} from '../../actions/actionType';
 
 
 // keresési kulcsszó mentése

@@ -86,8 +86,8 @@ class ChartDemoContainer extends Component {
           <div className='panel-heading'>Chart.js</div>
           <div className='panel-body'>
             <BarChartJS data={this.state.dataChart} options={this.state.optionsChart}
-                         width='600'
-                         height='250'/>
+                        width='600'
+                        height='250'/>
           </div>
         </div>
 

@@ -2,9 +2,6 @@
 // célszerű kiszervezni, mert átlátható így, hogy mikor mit történik
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'; // current user változtatása
-export const DUMMY1_FETCH_SUCCESS = 'DUMMY1_FETCH_SUCCESS'; // letölti a listát
-export const DUMMY1_FETCH_FAIL = 'DUMMY1_FETCH_FAIL'; // letölti a listát
-export const DUMMY1_REMOVE_ELEMENT = 'DUMMY1_REMOVE_ELEMENT'; // listából töröl egy elemet
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'; // ha nem sikerült a login
 export const USER_LOGOUT = 'USER_LOGOUT'; // user kijelentkezett
 

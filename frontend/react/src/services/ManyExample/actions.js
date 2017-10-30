@@ -3,14 +3,11 @@ import FileDownload from 'react-file-download';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 
 import {
-  DUMMY1_FETCH_FAIL,
-  DUMMY1_FETCH_SUCCESS,
-  DUMMY1_REMOVE_ELEMENT,
   FETCH_SECRET_USERS_FAIL,
   FETCH_SECRET_USERS_SUCCESS,
   FETCH_USA_ZIP_FAIL,
   FETCH_USA_ZIP_SUCCESS
-} from './actionType/index';
+} from '../../actions/actionType/index';
 
 export function fetchUsaZip() {
   return (dispatch) => {
@@ -27,17 +24,6 @@ export function fetchUsaZip() {
   };
 }
 
-
-// adott elem eltávolítása a listáról
-export function removeUser(user) {
-  return {
-    type: DUMMY1_REMOVE_ELEMENT,
-    payload: {
-      user
-    }
-  };
-}
-
 // titkos userek lekérése
 export function fetchSecretUsers() {
   return (dispatch) => {
@@ -49,22 +35,6 @@ export function fetchSecretUsers() {
       })
       .catch((err) => {
         dispatch({ type: FETCH_SECRET_USERS_FAIL, payload: err });
-        dispatch(hideLoading());
-      });
-  };
-}
-
-
-export function fetchUsersWeb() {
-  return (dispatch) => {
-    dispatch(showLoading());
-    axios.get('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        dispatch({ type: DUMMY1_FETCH_SUCCESS, payload: response.data });
-        dispatch(hideLoading());
-      })
-      .catch((err) => {
-        dispatch({ type: DUMMY1_FETCH_FAIL, payload: err });
         dispatch(hideLoading());
       });
   };

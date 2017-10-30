@@ -2,15 +2,13 @@ import { combineReducers } from 'redux';
 import { loadingBarReducer } from 'react-redux-loading-bar';
 import { routerReducer } from 'react-router-redux';
 
-import userReducer from './userReducer';
-import dummyDataSetReducer from './dummyDataSetReducer';
+import ManyExampleReducer from '../services/ManyExample/reducer';
 import authReducer from '../services/sign/Login/reducer';
-import firstExampleReducer from './firstExample/firstExampleReducer';
+import firstExampleReducer from '../services/FirstComplexExample/reducer';
 
 
 export default combineReducers({
-  users: userReducer,
-  usaZip: dummyDataSetReducer,
+  usaZip: ManyExampleReducer,
   currentUser: authReducer,
   firstExample: firstExampleReducer,
   // ezek itt a behúzott csomagoknak kellenek

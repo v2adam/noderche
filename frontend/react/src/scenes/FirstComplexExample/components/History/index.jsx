@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import {
   deleteHistorySearch,
   listHistorySearch
-} from '../../../../actions/firstExample/firstExampleActions';
+} from '../../../../services/FirstComplexExample/actions';
 
-import HistoryList from './historyListComponent'
+import HistoryList from './components/HistoryList'
 
 // smart component, összeköttetésben áll a store-ral
 class HistoryContainer extends Component {

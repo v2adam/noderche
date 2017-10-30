@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuExampleTabularOnLeft from './menuComponent/menuExampleTabularOnLeftContainer';
+import MenuExampleTabularOnLeft from '../FirstComplexExample/components/MenuComponent';
 import 'semantic-ui-css/semantic.min.css';
 
 // ez csak arra van, hogy összefogja az oldalt

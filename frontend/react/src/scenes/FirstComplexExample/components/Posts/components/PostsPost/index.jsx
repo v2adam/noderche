@@ -30,5 +30,3 @@ class PostArea extends Component {
 }
 
 export default PostArea;
-
-

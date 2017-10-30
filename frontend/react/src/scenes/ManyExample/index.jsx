@@ -7,18 +7,15 @@ import CircularProgressbar from 'react-circular-progressbar';
 import * as XLSX from 'xlsx';
 import Dropzone from 'react-dropzone';
 
+import './style.css';
+import { DataTableUsaZip } from '../ManyExample/components/DataTableUsaZip';
+import {
+  downloadXlsx,
+  fetchUsaZip,
+  uploadDocumentRequest
+} from '../../services/ManyExample/actions'
 
-import './dummy2Container.css';
-import { DatatableUsaZip } from '../components/datatableUsaZip';
-import { downloadXlsx, fetchUsaZip, uploadDocumentRequest } from '../actions/dummyDataSetActions';
-
-//import processFile  from 'excel-as-json';
-
-//const convertExcel = require('excel-as-json').processFile;
-
-// ez egy smart component (container), mert összeköttetésben áll a store-ral, és így ismeri a belső állapotot
-class Dummy2Container extends Component {
-
+class ManyExample extends Component {
 
   constructor(props) {
     super(props);
@@ -154,7 +151,7 @@ class Dummy2Container extends Component {
 
 
         <button className='btn btn-danger' onClick={() => this.conv()}>Convert</button>
-        <DatatableUsaZip usaZip={this.props.usaZip} loadingBar={this.props.loadingBar}/>
+        <DataTableUsaZip usaZip={this.props.usaZip} loadingBar={this.props.loadingBar}/>
         <h1>Lent egy komponens</h1>
 
         <section>
@@ -192,7 +189,6 @@ function mapStateToProps(state) {
   return {
     usaZip: state.usaZip.usaZip.dataset,
     loadingBar: state.loadingBar,
-    lastDeletedUser: state.users.lastDeletedUser
   };
 }
 
@@ -206,4 +202,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // ezzel a kiajánlással egy store-ral összekötött komponensem lesz (smart componenet) => container !!!!
-export default connect(mapStateToProps, mapDispatchToProps)(Dummy2Container);
+export default connect(mapStateToProps, mapDispatchToProps)(ManyExample);

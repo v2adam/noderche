@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 
-export class DatatableUsaZip extends Component {
+export class DataTableUsaZip extends Component {
 
 
   static customLabel(cell, row) {
@@ -58,7 +58,7 @@ export class DatatableUsaZip extends Component {
           <TableHeaderColumn dataField='city' dataSort={true} dataAlign='center' filter={ { type: 'TextFilter', placeholder: 'Keress városra', delay: 500 } } >City</TableHeaderColumn>
           <TableHeaderColumn dataField='pop' dataSort={true} filter={ { type: 'NumberFilter', placeholder: 'Keress', delay: 500, numberComparators: [ '=', '>', '<=' ]  } }>Population</TableHeaderColumn>
           <TableHeaderColumn dataField='state' dataSort={true} filter={ { type: 'RegexFilter', placeholder: 'Keress államra', delay: 500 } }>State</TableHeaderColumn>
-          <TableHeaderColumn dataField='pop' dataFormat={DatatableUsaZip.customLabel} dataSort={true}>City Size</TableHeaderColumn>
+          <TableHeaderColumn dataField='pop' dataFormat={this.customLabel} dataSort={true}>City Size</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

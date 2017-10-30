@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
-import SearchAddress from './search/search';
-import HistoryContainer from './history/history';
-import PostsContainer from './comment/postsContainer';
+import SearchAddress from '../Search';
+import HistoryContainer from '../History';
+import PostsContainer from '../Posts';
 
 // ennek a componentnek-nek az a dolga, hogy a kiválasztott menü tartalmát megjeleníti
 export default class MenuExampleTabularOnLeft extends Component {

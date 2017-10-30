@@ -1,4 +1,4 @@
-import { FETCH_USA_ZIP_SUCCESS } from '../actions/actionType/index';
+import { FETCH_USA_ZIP_SUCCESS } from '../../actions/actionType';
 
 
 const initState = {

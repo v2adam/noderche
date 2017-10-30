@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import promisify from 'es6-promisify';
 
-import { saveHistorySearch } from '../../../../actions/firstExample/firstExampleActions';
+import { saveHistorySearch } from '../../../../services/FirstComplexExample/actions';
 
 class SearchAddress extends Component {
 
