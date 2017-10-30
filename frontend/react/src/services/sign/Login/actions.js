@@ -2,15 +2,9 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
 import { push } from 'react-router-redux';
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
-import setAuthorizationToken from '../misc/setAuthorizationToken';
-import store from '../store';
-import {
-  SET_CURRENT_USER,
-  USER_LOGIN_FAIL,
-  USER_LOGOUT,
-  USER_REGISTER_FAIL
-} from './actionType/index';
-
+import setAuthorizationToken from '../../../misc/setAuthorizationToken';
+import store from '../../../store';
+import { SET_CURRENT_USER, USER_LOGIN_FAIL, USER_LOGOUT } from '../../../actions/actionType/index';
 
 // current user elmentése a store-ba
 export function setCurrentUser(user) {
@@ -31,6 +25,9 @@ export function loginUser(data) {
         'Content-Type': 'application/json'
       }
     };
+
+    console.log(data);
+
     axios.post('/api/v1/users/login', JSON.stringify(data), opt)
       .then((response) => {
         const token = response.data.token;
@@ -74,31 +71,3 @@ export function logoutUser() {
     dispatch(hideLoading());
   };
 }
-
-
-// regisztrálás
-export function registerUser(data) {
-  return (dispatch) => {
-    dispatch(showLoading());
-
-    const opt = {
-      mode: 'CORS',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
-    axios.post('/api/v1/users/register', JSON.stringify(data), opt)
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(loginUser(data));
-        }
-        dispatch(hideLoading());
-      })
-      .catch((err) => {
-        dispatch({ type: USER_REGISTER_FAIL, payload: err });
-        dispatch(hideLoading());
-      });
-  };
-}
-

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { SET_CURRENT_USER } from '../actions/actionType/index';
+import { SET_CURRENT_USER } from '../../../actions/actionType/index';
 
 const initState = {
   isAuthenticated: false,

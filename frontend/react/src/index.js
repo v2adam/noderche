@@ -9,9 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 import App from './App';
 import setAuthorizationToken from "./misc/setAuthorizationToken";
-import { setCurrentUser } from "./actions/authActions";
-
-//olyan mint az angularban az app.module, ez fogja össze a dolgokat
+import { setCurrentUser } from "./services/sign/Login/actions";
 
 
 // auth-token használata

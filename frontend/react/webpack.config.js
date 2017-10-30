@@ -24,11 +24,10 @@ module.exports = {
     ]
   },
 
+
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    root: [
-      path.resolve('./src')
-    ]
+    modules: ['src', 'node_modules'],
+    extensions: ['.js', '.jsx'],
   },
 
 

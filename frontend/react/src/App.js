@@ -4,46 +4,34 @@ import { bindActionCreators } from 'redux';
 import { Route, Switch, withRouter } from 'react-router'
 
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
-
 import './index.css';
-import LoginContainer from './containers/loginContainer';
-import About from './components/about';
+import Sign from './scenes/Sign'
 import DummyPage1 from './components/dummyPage1';
-import PageNotFound from './components/pageNotFound';
+import PageNotFound from './scenes/PageNotFound';
 import Home from './components/home';
 import Header from './containers/header';
 import Dummy2Container from './containers/dummy2Container';
-import RegisterContainer from './containers/registerContainer';
-import SecretContainer from './containers/secretContainer';
 import PrivateRoute from './misc/privateRoute';
 import UrlParamComponent from './components/urlParamComponent';
-import CommentDisplay from './components/statelessComponent';
 import ChartDemoContainer from './containers/chartDemoContainer';
-import MapDemoContainer from './containers/mapDemoContainer';
+import AsyncExample from './scenes/AsyncExample';
 import FirstExampleMain from './containers/firstExample/pageContainer';
 
-//olyan mint az angularban az app.component
-//ez a főkomponens, ide rakni a route-okat
-//ez az app, innen renderelődnek a különböző page-k a route-ok alapján
 class App extends Component {
 
-
+  // itt add meg, hogy url-en keresztül mely scene-k érhetőek el
   render() {
     return (
       <div>
         <Header/>
         <Switch>
           <Route exact path='/' component={Home}/>
-          <Route path='/login' component={LoginContainer}/>
-          <Route path='/register' component={RegisterContainer}/>
-          <Route path='/about' component={About}/>
+          <Route path='/login' component={Sign}/>
+          <Route path='/register' component={Sign}/>
           <Route path='/dummy1' component={DummyPage1}/>
           <Route path='/dummy2' component={Dummy2Container}/>
-          <PrivateRoute path="/secret" component={SecretContainer}
-                        isAuthenticated={this.props.isAuthenticated}/>
-          <Route path='/asd' component={CommentDisplay} valami='itt'/>
           <Route path='/chartdemo' component={ChartDemoContainer}/>
-          <Route path='/mapdemo' component={MapDemoContainer}/>
+          <Route path='/async_example' component={AsyncExample}/>
           <PrivateRoute path="/firstexample" component={FirstExampleMain}
                         isAuthenticated={this.props.isAuthenticated}/>
           <Route path="/valami/:id"

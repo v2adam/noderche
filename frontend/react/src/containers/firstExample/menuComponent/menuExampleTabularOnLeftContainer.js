@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
-import About from '../../../components/about';
 import SearchAddress from './search/search';
 import HistoryContainer from './history/history';
 import PostsContainer from './comment/postsContainer';
@@ -34,10 +33,6 @@ export default class MenuExampleTabularOnLeft extends Component {
         content = <PostsContainer/>;
         break;
 
-      case 'about':
-        content = <About/>;
-        break;
-
       default:
         content = <h4>Nincs itt semmi</h4>;
         break;
@@ -55,7 +50,6 @@ export default class MenuExampleTabularOnLeft extends Component {
                        onClick={this.handleItemClick}/>
             <Menu.Item name='posts' active={activeItem === 'posts'}
                        onClick={this.handleItemClick}/>
-            <Menu.Item name='about' active={activeItem === 'about'} onClick={this.handleItemClick}/>
 
           </Menu>
         </Grid.Column>

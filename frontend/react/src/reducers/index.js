@@ -4,13 +4,9 @@ import { routerReducer } from 'react-router-redux';
 
 import userReducer from './userReducer';
 import dummyDataSetReducer from './dummyDataSetReducer';
-import authReducer from './authReducer';
+import authReducer from '../services/sign/Login/reducer';
 import firstExampleReducer from './firstExample/firstExampleReducer';
 
-
-// ez a combineReducer, ezt adom át a store-nak
-// store-ból meghivatkozhatóak a dolgok,
-// pl: lastDeletedUser kinyerhető a store.users.lastDeletedUser-ként
 
 export default combineReducers({
   users: userReducer,

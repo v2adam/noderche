@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import promisify from 'es6-promisify';
 
 // itt egy egyszerű példa, hogy nagyjából mi ez a callback-promise-async/await
-class MapDemoContainer extends Component {
+class AsyncExample extends Component {
 
   constructor() {
     // react komponensnél kell a super()
@@ -310,4 +310,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapDemoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncExample);

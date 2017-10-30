@@ -10,7 +10,6 @@ import Dropzone from 'react-dropzone';
 
 import './dummy2Container.css';
 import { DatatableUsaZip } from '../components/datatableUsaZip';
-import { LastDeletedUserPanel } from '../components/dummy1'
 import { downloadXlsx, fetchUsaZip, uploadDocumentRequest } from '../actions/dummyDataSetActions';
 
 //import processFile  from 'excel-as-json';
@@ -155,7 +154,6 @@ class Dummy2Container extends Component {
 
 
         <button className='btn btn-danger' onClick={() => this.conv()}>Convert</button>
-        <LastDeletedUserPanel user={this.props.lastDeletedUser}/>
         <DatatableUsaZip usaZip={this.props.usaZip} loadingBar={this.props.loadingBar}/>
         <h1>Lent egy komponens</h1>
 
@@ -179,7 +177,9 @@ class Dummy2Container extends Component {
           </aside>
         </section>
 
-        <button className='btn btn-danger' onClick={() => this.processMyFiles(this.state.accepted)}>XLS -> JSON</button>
+        <button className='btn btn-danger' onClick={() => this.processMyFiles(this.state.accepted)}>
+          XLS -> JSON
+        </button>
 
       </div>
     );
