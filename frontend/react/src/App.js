@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Route, Switch, withRouter } from 'react-router'
 
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 import './index.css';
 import LoginContainer from './containers/loginContainer';
@@ -21,6 +23,7 @@ import CommentDisplay from './components/statelessComponent';
 import ChartDemoContainer from './containers/chartDemoContainer';
 import MapDemoContainer from './containers/mapDemoContainer';
 import FilterableDemoContainer from './containers/filterableDemoContainer';
+import DashboardContainer from './containers/dashboardContainer';
 
 //olyan mint az angularban az app.component
 //ez a főkomponens, ide rakni a route-okat
@@ -45,6 +48,7 @@ class App extends Component {
           <Route path='/chartdemo' component={ChartDemoContainer}/>
           <Route path='/filterDemo' component={FilterableDemoContainer}/>
           <Route path='/mapdemo' component={MapDemoContainer}/>
+          <Route path='/dashboard' component={DashboardContainer}/>
 
           <Route path="/valami/:id"
                  component={UrlParamComponent}/> {/* url-ben átadható paraméter*/}

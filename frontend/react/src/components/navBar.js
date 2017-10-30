@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './style.css'
-
+import '../../node_modules/react-grid-layout/css/styles.css'
+import '../../node_modules/react-resizable/css/styles.css'
 // a navigációs sáv az állapotmentes
 
 export default class NavBar extends Component {
@@ -33,6 +34,7 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/filterDemo'>FilterAbleTable</NavLink></li>
             {secretMenu}
             <li><NavLink activeClassName='active' to='/mapdemo'>Map Demo</NavLink></li>
+            <li><NavLink activeClassName='active' to='/dashboard'>Dashboard</NavLink></li>
           </ul>FilterableDemoContainer
         </div>
       </nav>

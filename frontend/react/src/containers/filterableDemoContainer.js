@@ -32,7 +32,7 @@ class FilterableDemoContainer extends Component {
           type : "CHECKBOX",
           label : "Csak raktáron",
           filterFunction : (label,filterValue) => {
-            console.log(label); return !filterValue || label.isStocked
+            return !filterValue || label.isStocked
           },
           handleChange : this.onValueChangeHandler
         }
