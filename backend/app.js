@@ -22,6 +22,7 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const dummyData = require('./routes/dummyData');
 const firstExample = require('./routes/firstExample');
+const utilRoutes = require('./routes/utils');
 
 const app = express();
 
@@ -66,6 +67,8 @@ app.use('/api/v1/users', apiLimiter, users);
 app.use('/api/v1/dummy', apiLimiter, dummyData);
 
 app.use('/api/v1/first', apiLimiter, firstExample);
+
+app.use('/api/v1/util', apiLimiter, utilRoutes);
 
 
 // főoldal a gyökérre passzol

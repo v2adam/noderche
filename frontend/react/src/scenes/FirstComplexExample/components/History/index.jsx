@@ -11,10 +11,6 @@ import HistoryList from './components/HistoryList'
 // smart component, összeköttetésben áll a store-ral
 class HistoryContainer extends Component {
 
-  constructor() {
-    super();
-  }
-
   // leszedi a history-t
   componentDidMount() {
     this.props.listHistorySearch();

@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import RandomGiphy from "../../components/RandomGiphy/index";
 
 // általános oldal, a 404-re
-export default class PageNotFound extends Component {
+const PageNotFound = (props) => (
+  <div>
+    <h2>Page not found</h2>
+    <RandomGiphy tag='sleeping cat'/>
+  </div>
+);
 
-  render() {
-    return (
-      <div>
-        <h2>Page not found</h2>
-      </div>
-    );
-
-  }
-}
+export default PageNotFound;

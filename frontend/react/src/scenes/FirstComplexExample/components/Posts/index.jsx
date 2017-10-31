@@ -11,10 +11,6 @@ import PostArea from './components/PostsPost';
 
 class PostsContainer extends Component {
 
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.props.listPosts();
   }
