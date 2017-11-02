@@ -1,12 +1,5 @@
-import axios from 'axios';
+import loadGiphy from '../../../../services/RandomGiphy/LoadGiphy';
 
+const loadGiphyService = loadGiphy;
 
-const loadGiphy = async (searchTag) => {
-  try {
-    return axios('/api/v1/util/fetch_random_giphy', { params: { searchTag } });
-  } catch (err) {
-    return err;
-  }
-};
-
-export default loadGiphy;
+export default loadGiphyService;
