@@ -6,6 +6,7 @@ import FilterableDemoContainer from "../containers/filterableDemoContainer";
 import _ from "lodash";
 import {Responsive, WidthProvider} from 'react-grid-layout';
 import { DraggableComponent } from "../components/draggable/DraggableComponent";
+import ChartDemoContainer from "../containers/chartDemoContainer";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 
@@ -33,6 +34,21 @@ class DashboardContainer extends Component {
                             key={i}/>
       )
     }
+    const comp2 =
+  <
+    ChartDemoContainer / >;
+    sourceComponents.push(
+    < DraggableComponent
+    id = { 10 }
+    component = { comp2 }
+    isSource = { true }
+    deleteFromContainer = { false }
+    onDragStartFunction = { this.onComponentDragged
+  }
+    key = { 10 }
+    />
+  )
+
     this.state = {
       source: sourceComponents,
       target: this.props.target,
