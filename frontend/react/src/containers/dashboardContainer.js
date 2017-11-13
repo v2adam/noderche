@@ -7,6 +7,7 @@ import _ from "lodash";
 import {Responsive, WidthProvider} from 'react-grid-layout';
 import { DraggableComponent } from "../components/draggable/DraggableComponent";
 import ChartDemoContainer from "../containers/chartDemoContainer";
+import GoogleMapsContainer from "../containers/googleMapsContainer";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 
@@ -23,7 +24,7 @@ class DashboardContainer extends Component {
   constructor(props) {
     super(props);
     const sourceComponents = [];
-    for(let i=0;i<10;i++){
+    for (let i = 0; i < 4; i++) {
       const comp = <FilterableDemoContainer/>;
       sourceComponents.push(
         <DraggableComponent id={i}
@@ -34,20 +35,24 @@ class DashboardContainer extends Component {
                             key={i}/>
       )
     }
-    const comp2 =
-  <
-    ChartDemoContainer / >;
+    const comp2 = <ChartDemoContainer/>;
     sourceComponents.push(
-    < DraggableComponent
-    id = { 10 }
-    component = { comp2 }
-    isSource = { true }
-    deleteFromContainer = { false }
-    onDragStartFunction = { this.onComponentDragged
-  }
-    key = { 10 }
-    />
-  )
+      <DraggableComponent id={5}
+                          component={comp2}
+                          isSource={true}
+                          deleteFromContainer={false}
+                          onDragStartFunction={this.onComponentDragged}
+                          key={5}/>
+    )
+    const comp3 = <GoogleMapsContainer/>;
+    sourceComponents.push(
+      <DraggableComponent id={6}
+                          component={comp3}
+                          isSource={true}
+                          deleteFromContainer={false}
+                          onDragStartFunction={this.onComponentDragged}
+                          key={6}/>
+    )
 
     this.state = {
       source: sourceComponents,
