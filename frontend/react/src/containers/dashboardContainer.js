@@ -35,6 +35,17 @@ class DashboardContainer extends Component {
                             key={i}/>
       )
     }
+
+    const comp3 = <GoogleMapsContainer/>;
+    sourceComponents.push(
+      <DraggableComponent id={4}
+                          component={comp3}
+                          isSource={true}
+                          deleteFromContainer={false}
+                          onDragStartFunction={this.onComponentDragged}
+                          key={4}/>
+    )
+
     const comp2 = <ChartDemoContainer/>;
     sourceComponents.push(
       <DraggableComponent id={5}
@@ -43,15 +54,6 @@ class DashboardContainer extends Component {
                           deleteFromContainer={false}
                           onDragStartFunction={this.onComponentDragged}
                           key={5}/>
-    )
-    const comp3 = <GoogleMapsContainer/>;
-    sourceComponents.push(
-      <DraggableComponent id={6}
-                          component={comp3}
-                          isSource={true}
-                          deleteFromContainer={false}
-                          onDragStartFunction={this.onComponentDragged}
-                          key={6}/>
     )
 
     this.state = {
