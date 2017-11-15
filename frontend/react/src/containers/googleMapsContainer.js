@@ -2,45 +2,35 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import GoogleMapReact from 'google-map-react';
-//import './dummy2Container.css';
+import './dummy2Container.css';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-const AnyReactComponent = ({ text }) => (
-  <div style={{
-    position: 'relative', color: 'white', background: 'red',
-    height: 40, width: 60, top: -20, left: -30,
-  }}>
-    {text}
-  </div>
-);
 
 //Google API key: AIzaSyDK4S6OGTynniGOqtPSmtnuP3ibMKw2v6w
-class GoogleMapsContainer extends Component {
-  static defaultProps = {
-    center: { lat: 41.0, lng: 19.0 },
-    zoom: 11
-  };
-
-  constructor(props) {
-    super(props);
-  }
-
+export class GoogleMapsContainer extends Component {
   render() {
     return (
       <div className='container'>
-        <GoogleMapReact
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={41.0}
-            lng={19.0}
-            text={'Google maps beágyazás teszt'}
-          />
-        </GoogleMapReact>
+        <Map google={this.props.google} zoom={14}>
+
+          <Marker onClick={this.onMarkerClick}
+                  name={'Current location'}/>
+
+          <InfoWindow onClose={this.onInfoWindowClose}>
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+            </div>
+          </InfoWindow>
+        </Map>
       </div>
     );
   }
 }
+
+export default GoogleApiWrapper({
+  apiKey: "AIzaSyDK4S6OGTynniGOqtPSmtnuP3ibMKw2v6w"
+})(GoogleMapsContainer)
+
 
 // itt lehetne a store-ból objektumokat meghivatkozni és használni
 function mapStateToProps(state) {
@@ -53,4 +43,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 // ezzel a kiajánlással egy store-ral összekötött komponensem lesz (smart componenet) => container !!!!
-export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapsContainer);
+//export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapsContainer);
