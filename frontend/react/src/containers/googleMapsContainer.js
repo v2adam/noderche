@@ -8,22 +8,53 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 //Google API key: AIzaSyDK4S6OGTynniGOqtPSmtnuP3ibMKw2v6w
 export class GoogleMapsContainer extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+    }
+
+    // binding this to event-handler functions
+    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMapClicked = this.onMapClicked.bind(this);
+  }
+
+  // noinspection JSAnnotator
+  onMarkerClick = function (props, marker, e) {
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+  }
+
+  onMapClicked = function (props) {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  }
+
+  render = function () {
     return (
-      <div className='container'>
-        <Map google={this.props.google} zoom={14}>
+      <Map google={this.props.google}
+           onClick={this.onMapClicked}>
+        <Marker onClick={this.onMarkerClick}
+                name={'Current location'}/>
 
-          <Marker onClick={this.onMarkerClick}
-                  name={'Current location'}/>
-
-          <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
-          </InfoWindow>
-        </Map>
-      </div>
-    );
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}>
+          <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
+        </InfoWindow>
+      </Map>
+    )
   }
 }
 
