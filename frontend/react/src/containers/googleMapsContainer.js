@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import GoogleMapReact from 'google-map-react';
 import './dummy2Container.css';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
