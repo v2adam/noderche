@@ -4,6 +4,7 @@
     height: 100vh;
     padding: 10px;
     border: 1px solid #aaaaaa;
+    vertical-align: top;
 }
 
 .targetDiv {
@@ -15,11 +16,11 @@
     border: 1px solid #aaaaaa;
 }
 
-.dashboard-container{
+.dashboard-container {
     display: table;
 }
 
-.resizable-component{
+.resizable-component {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -30,20 +31,39 @@
 }
 
 .draggable-component > .container {
-    width: auto;
+    width: 100%;
+    height: 100%;
 }
 
-.draggable-component{
+.draggable-component {
+    height: 100%;
 }
 
-.resizable-box{
+.resizable-box {
     overflow: hidden;
     background: wheat;
 }
 
-.remove{
+.remove {
     position: absolute;
     right: 2px;
     top: 0;
     cursor: pointer;
+    z-index: 100;
+}
+
+.sticky-edit-div {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    text-align: right;
+    z-index: 1;
+    padding: 10px;
+}
+
+.sticky-source-content {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    z-index: 1;
 }
