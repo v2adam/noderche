@@ -5,6 +5,7 @@
     padding: 10px;
     border: 1px solid #aaaaaa;
     vertical-align: top;
+    white-space: nowrap;
 }
 
 .targetDiv {

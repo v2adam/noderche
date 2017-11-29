@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 export class DraggableComponent extends Component {
   onDragStart = (event) => {
-    this.props.onDragStartFunction(this.props.id);
+    if(this.props.isSource){
+      this.props.onDragStartFunction(this.props.id);
+    }
   };
 
 
