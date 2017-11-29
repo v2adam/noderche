@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export class DraggableComponent extends Component {
   onDragStart = (event) => {
-    if(this.props.isSource){
+    if (this.props.isSource) {
       this.props.onDragStartFunction(this.props.id);
     }
   };
@@ -15,7 +15,7 @@ export class DraggableComponent extends Component {
 
   render() {
     return (
-      <div style={this.props.isSource ? {} : {height: "100%"}}>
+      <div style={this.props.isSource ? {} : { height: "100%" }}>
         <div
           draggable={this.props.isSource}
           onDragStart={(event) => this.onDragStart(event)}

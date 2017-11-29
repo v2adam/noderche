@@ -10,7 +10,7 @@ export class TargetContainer extends Component {
   createTargetComponent = (component) => {
     return (
       <div key={component.id.toString()} className={"resizable-box"}>
-        <span className="remove" style={this.props.underEdit ? {display: "none"} : {}}
+        <span className="remove" style={this.props.underEdit ? { display: "none" } : {}}
               onClick={() => this.props.onRemoveItem(component.id)}>
           x
         </span>
@@ -22,8 +22,8 @@ export class TargetContainer extends Component {
   getDashboardSettings = () => {
     return ({
       className: "layout",
-      cols: { lg: 12},
-      breakpoints: {lg: 1200},
+      cols: { lg: 12 },
+      breakpoints: { lg: 1200 },
       rowHeight: 100,
     });
   };

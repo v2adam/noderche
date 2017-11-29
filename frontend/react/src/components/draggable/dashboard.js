@@ -31,8 +31,10 @@ export class Dashboard extends Component {
 
   onLayoutChange = (layout, allLayout) => {
     let newLayout = allLayout.lg.slice();
-    newLayout.forEach((l) => {l.static = this.state.isEditing});
-    const layouts = {lg : newLayout};
+    newLayout.forEach((l) => {
+      l.static = this.state.isEditing
+    });
+    const layouts = { lg: newLayout };
     this.setState({ layout: layouts });
   };
 
@@ -61,7 +63,7 @@ export class Dashboard extends Component {
     });
     this.setState({
       target: newTarget,
-      layout: { lg: newLayout}
+      layout: { lg: newLayout }
     });
   };
 
@@ -69,17 +71,20 @@ export class Dashboard extends Component {
     const isEditing = !this.state.isEditing;
     let newLayout = this.state.layout.lg.slice();
     console.log(newLayout);
-    if(newLayout.length>0 && newLayout[newLayout.length-1].i === "temp"){
-      newLayout.splice(-1,1);
+    if (newLayout.length > 0 && newLayout[newLayout.length - 1].i === "temp") {
+      newLayout.splice(-1, 1);
     }
-    newLayout.forEach((l) => {l.static = isEditing});
-    newLayout.push({x: 0,
+    newLayout.forEach((l) => {
+      l.static = isEditing
+    });
+    newLayout.push({
+      x: 0,
       y: 0,
       h: 0,
       w: 0,
       i: "temp"
-      });
-    const layouts = {lg : newLayout};
+    });
+    const layouts = { lg: newLayout };
     this.setState({
       layout: layouts,
       isEditing: isEditing
@@ -95,7 +100,8 @@ export class Dashboard extends Component {
     return (
       <div id="dashboard" className="dashboard-container">
         <div className="sticky-edit-div" id="editDiv">
-          <button onClick={() => this.changeStatic()}>{this.state.isEditing ? "Mozgatás" : "Szerkesztés"}</button>
+          <button
+            onClick={() => this.changeStatic()}>{this.state.isEditing ? "Mozgatás" : "Szerkesztés"}</button>
         </div>
         <div id="data">
           <SourceContainer components={this.state.source}
@@ -118,7 +124,7 @@ export class Dashboard extends Component {
 Dashboard.defaultProps = {
   target: [],
   source: [],
-  layout: {lg : []},
+  layout: { lg: [] },
   isEditing: true
 };
 
