@@ -63,7 +63,8 @@ export class Dashboard extends Component {
     });
     this.setState({
       target: newTarget,
-      layout: { lg: newLayout }
+      layout: { lg: newLayout },
+      currentWidget: undefined
     });
   };
 

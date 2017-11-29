@@ -14,7 +14,9 @@ export class TargetContainer extends Component {
               onClick={() => this.props.onRemoveItem(component.id)}>
           x
         </span>
-        {component.widget}
+        <fieldset disabled={this.props.underEdit}>
+          {component.widget}
+        </fieldset>
       </div>
     );
   };
@@ -29,7 +31,7 @@ export class TargetContainer extends Component {
   };
 
   allowDrop = (event) => {
-    if (_.isUndefined(this.props.currentWidget.id)) {
+    if (_.isUndefined(this.props.currentWidget)) {
       return;
     }
 
@@ -37,7 +39,7 @@ export class TargetContainer extends Component {
   };
 
   onComponentDropped = (event) => {
-    if (_.isUndefined(this.props.currentWidget.id)) {
+    if (_.isUndefined(this.props.currentWidget)) {
       return;
     }
     this.props.onComponentDropped(this.props.currentWidget);
