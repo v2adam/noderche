@@ -27,6 +27,7 @@ export default class NavBar extends Component {
             <li><NavLink activeClassName='active' to='/chart_sandbox'>Chart Sandbox</NavLink></li>
             <li><NavLink activeClassName='active' to='/async_example'>Async example</NavLink></li>
             {secretMenu}
+            <li><NavLink activeClassName='active' to='/dashboard'>Dashboard Demo</NavLink></li>
           </ul>
         </div>
       </nav>
