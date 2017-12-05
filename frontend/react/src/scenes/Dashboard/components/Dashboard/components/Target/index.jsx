@@ -7,13 +7,18 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class TargetContainer extends Component {
 
+  // komponensek kirenderelése
   createTargetComponent = (component) => {
     return (
       <div key={component.id.toString()} className={"resizable-box"}>
-        <span className="remove" style={this.props.underEdit ? { display: "none" } : {}}
-              onClick={() => this.props.onRemoveItem(component.id)}>
-          x
-        </span>
+        <div style={this.props.underEdit ? { display: "none" } : {}}>
+          <div onClick={() => this.props.onLockItem(component)}>
+            {component.static ? "Unlock" : "Lock"}
+          </div>
+          <div onClick={() => this.props.onRemoveItem(component.id)}>
+            x
+          </div>
+        </div>
         <fieldset disabled={this.props.underEdit}>
           {component.widget}
         </fieldset>
@@ -21,6 +26,7 @@ export default class TargetContainer extends Component {
     );
   };
 
+  // default beállítások
   getDashboardSettings = () => {
     return ({
       className: "layout",
@@ -38,6 +44,7 @@ export default class TargetContainer extends Component {
     event.preventDefault();
   };
 
+  // új elem hozzáadása a rácshoz
   onComponentDropped = (event) => {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
@@ -51,8 +58,9 @@ export default class TargetContainer extends Component {
            onDrop={(event) => this.onComponentDropped(event)}
            onDragOver={(event) => this.allowDrop(event)}>
         <ResponsiveReactGridLayout onLayoutChange={this.props.onLayoutChange}
-                                   {...this.getDashboardSettings()} layouts={this.props.layouts}
-                                   compactType={null}>
+                                   layouts={this.props.layouts}
+                                   compactType={null}
+                                   {...this.getDashboardSettings()}>
           {_.map(this.props.widgets, (el) => this.createTargetComponent(el))}
         </ResponsiveReactGridLayout>
       </div>
@@ -67,7 +75,8 @@ TargetContainer.propTypes = {
   currentWidget: PropTypes.object,
   onLayoutChange: PropTypes.func.isRequired,
   onComponentDropped: PropTypes.func.isRequired,
-  onRemoveItem: PropTypes.func.isRequired
+  onRemoveItem: PropTypes.func.isRequired,
+  onLockItem: PropTypes.func.isRequired
 };
 
 TargetContainer.defaultProps = {

@@ -29,6 +29,7 @@ export default class Dashboard extends Component {
     this.setState({ draggedObject: component });
   };
 
+  // mozgatás után az új elrendezést adja vissza
   onLayoutChange = (layout, allLayout) => {
     let newLayout = allLayout.lg.slice();
     newLayout.forEach((l) => {
@@ -36,7 +37,9 @@ export default class Dashboard extends Component {
     });
     const layouts = { lg: newLayout };
     this.setState({ layout: layouts });
+    console.log(this.state.layout);
   };
+
 
   getNextTargetId = () => {
     const id = this.state.nextTargetId;
@@ -44,6 +47,7 @@ export default class Dashboard extends Component {
     return id;
   };
 
+  // új elem hozzáadása a rácshoz
   addComponentToTarget = (component) => {
     let newTarget = this.state.target.slice();
     let newLayout = this.state.layout.lg.slice();
@@ -68,16 +72,22 @@ export default class Dashboard extends Component {
     });
   };
 
+
+  // szerkesztés gomb hatására
   changeStatic = () => {
     const isEditing = !this.state.isEditing;
     let newLayout = this.state.layout.lg.slice();
     console.log(newLayout);
+
+
     if (newLayout.length > 0 && newLayout[newLayout.length - 1].i === "temp") {
       newLayout.splice(-1, 1);
     }
+
     newLayout.forEach((l) => {
       l.static = isEditing
     });
+
     newLayout.push({
       x: 0,
       y: 0,
@@ -85,6 +95,8 @@ export default class Dashboard extends Component {
       w: 0,
       i: "temp"
     });
+
+
     const layouts = { lg: newLayout };
     this.setState({
       layout: layouts,
@@ -92,10 +104,36 @@ export default class Dashboard extends Component {
     });
   };
 
+
+  // elem eltávolítása
   onRemoveItem = (id) => {
     console.log("onRemoveItem: " + id);
     this.setState({ target: _.reject(this.state.target, { id: id }) });
   };
+
+  //TODO: nem működik, hibás a grid ibrary, nem kezeli jó a static-ot
+  // lock módosítása
+  onLockItem = (component) => {
+    // másolat a régiekről
+    let newLayout = this.state.layout.lg.slice();
+
+    // komponens átállítása
+    const temp = Object.assign({}, _.find(this.state.layout.lg, { i: component.id }));
+    temp.static = !temp.static;
+
+    // eltávolítás a régiekből
+    _.remove(newLayout, { i: component.id });
+
+    // berakni az új elemet
+    newLayout.push(temp);
+
+    const layouts = { lg: newLayout };
+    this.setState({
+      layout: layouts,
+    });
+
+  };
+
 
   render() {
     return (
@@ -115,7 +153,8 @@ export default class Dashboard extends Component {
                   currentWidget={this.state.draggedObject}
                   onRemoveItem={this.onRemoveItem}
                   onComponentDropped={this.addComponentToTarget}
-                  onLayoutChange={this.onLayoutChange}/>
+                  onLayoutChange={this.onLayoutChange}
+                  onLockItem={this.onLockItem}/>
         </div>
       </div>
     );
