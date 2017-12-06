@@ -5,12 +5,13 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
+
 export default class TargetContainer extends Component {
 
   // komponensek kirenderelése
   createTargetComponent = (component) => {
     return (
-      <div key={component.id.toString()} className={"resizable-box"}>
+      <div key={component.id.toString()} className={"well"} style={{ overflow: "hidden" }}>
         <div style={this.props.underEdit ? { display: "none" } : {}}>
           <div onClick={() => this.props.onLockItem(component)}>
             {component.static ? "Unlock" : "Lock"}
@@ -26,6 +27,7 @@ export default class TargetContainer extends Component {
     );
   };
 
+
   // default beállítások
   getDashboardSettings = () => {
     return ({
@@ -40,7 +42,6 @@ export default class TargetContainer extends Component {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
     }
-
     event.preventDefault();
   };
 
@@ -49,7 +50,9 @@ export default class TargetContainer extends Component {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
     }
+
     this.props.onComponentDropped(this.props.currentWidget);
+
   };
 
   render() {

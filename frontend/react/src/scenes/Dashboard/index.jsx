@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import FilterableList from '../../components/FilterableList';
 import Dashboard from "./components/Dashboard";
+import './style.css';
+import RandomGiphy from "../../components/RandomGiphy";
 
-export default class DashboardMain extends Component {
+export default class $DashboardMain extends Component {
   render() {
     const sourceComponents = [];
     sourceComponents.push({
@@ -30,6 +32,15 @@ export default class DashboardMain extends Component {
       defWidth: 1,
       id: 3
     });
+
+    sourceComponents.push({
+      title: "Cica",
+      widget: <RandomGiphy tag='sleeping cat'/>,
+      defHeight: 2,
+      defWidth: 2,
+      id: 4
+    });
+
 
     return <Dashboard source={sourceComponents}/>
   }
