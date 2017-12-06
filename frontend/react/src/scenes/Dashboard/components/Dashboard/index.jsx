@@ -68,7 +68,8 @@ export default class Dashboard extends Component {
     this.setState({
       target: newTarget,
       layout: { lg: newLayout },
-      currentWidget: undefined
+      currentWidget: undefined,
+      draggedObject: undefined
     });
   };
 
@@ -107,7 +108,6 @@ export default class Dashboard extends Component {
 
   // elem eltávolítása
   onRemoveItem = (id) => {
-    console.log("onRemoveItem: " + id);
     this.setState({ target: _.reject(this.state.target, { id: id }) });
   };
 

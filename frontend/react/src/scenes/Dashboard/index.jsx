@@ -4,8 +4,10 @@ import Dashboard from "./components/Dashboard";
 import './style.css';
 import RandomGiphy from "../../components/RandomGiphy";
 
-export default class $DashboardMain extends Component {
+export default class DashboardMain extends Component {
   render() {
+
+    // ezek lesznek a grid item-ek
     const sourceComponents = [];
     sourceComponents.push({
       title: "Lista ittttttttt",

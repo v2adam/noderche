@@ -9,7 +9,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class TargetContainer extends Component {
 
-  // komponensek kirenderelése
+  // komponensek egységes keretben
   createTargetComponent = (component) => {
     return (
       <div key={component.id.toString()} style={{ overflow: "hidden" }} className="well">
@@ -32,12 +32,12 @@ export default class TargetContainer extends Component {
   };
 
 
-  // default beállítások
+  // default beállítások a grid-hez
   getDashboardSettings = () => {
     return ({
       className: "layout",
-      cols: { lg: 12 },
-      breakpoints: { lg: 1200 },
+      cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+      breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
       rowHeight: 100,
     });
   };
@@ -54,9 +54,7 @@ export default class TargetContainer extends Component {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
     }
-
     this.props.onComponentDropped(this.props.currentWidget);
-
   };
 
   render() {
