@@ -106,6 +106,12 @@ export default class Dashboard extends Component {
   };
 
 
+  // szerkesztés gomb hatására
+  saveChanges = () => {
+    console.log('Save changes');
+  };
+
+
   // elem eltávolítása
   onRemoveItem = (id) => {
     this.setState({ target: _.reject(this.state.target, { id: id }) });
@@ -143,6 +149,9 @@ export default class Dashboard extends Component {
         <div className="sticky-edit-div" id="editDiv">
           <button
             onClick={() => this.changeStatic()}>{this.state.isEditing ? "Mozgatás" : "Szerkesztés"}</button>
+          <button
+            onClick={() => this.saveChanges()}>Save
+          </button>
         </div>
         <div id="data">
           <Source components={this.state.source}

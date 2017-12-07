@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from "lodash";
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import { Button, ButtonToolbar, Panel } from "react-bootstrap";
+import { Button, Panel } from "react-bootstrap";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -15,15 +15,17 @@ export default class TargetContainer extends Component {
       <div key={component.id.toString()} style={{ overflow: "hidden" }}
            className={component.background ? "well" : {}}>
         <Panel style={{ overflow: "hidden" }} header={
-          <div>
+          <span>
+          <span>
             {`${component.title}_${component.id}`}
-            <ButtonToolbar style={this.props.underEdit ? { display: "none" } : {}}>
+          </span>
+            <span style={this.props.underEdit ? { display: "none" } : { float: "right" }}>
               <Button bsStyle="primary" bsSize="xsmall"
                       onClick={() => this.props.onLockItem(component)}>{component.static ? "Unlock" : "Lock"}</Button>
               <Button bsStyle="danger" bsSize="xsmall"
                       onClick={() => this.props.onRemoveItem(component.id)}>x</Button>
-            </ButtonToolbar>
-          </div>}>
+            </span>
+          </span>}>
           <fieldset disabled={this.props.underEdit}>
             {component.widget}
           </fieldset>
