@@ -12,10 +12,11 @@ export default class TargetContainer extends Component {
   // komponensek egységes keretben
   createTargetComponent = (component) => {
     return (
-      <div key={component.id.toString()} style={{ overflow: "hidden" }} className="well">
+      <div key={component.id.toString()} style={{ overflow: "hidden" }}
+           className={component.background ? "well" : {}}>
         <Panel style={{ overflow: "hidden" }} header={
           <div>
-            {component.id}
+            {`${component.title}_${component.id}`}
             <ButtonToolbar style={this.props.underEdit ? { display: "none" } : {}}>
               <Button bsStyle="primary" bsSize="xsmall"
                       onClick={() => this.props.onLockItem(component)}>{component.static ? "Unlock" : "Lock"}</Button>

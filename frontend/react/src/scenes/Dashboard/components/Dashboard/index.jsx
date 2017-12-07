@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
       i: component.id + "_" + id,
       minW: component.defWidth,
       minH: component.defHeight,
-      static: this.state.isEditing
+      static: this.state.isEditing,
     });
     this.setState({
       target: newTarget,
@@ -114,6 +114,8 @@ export default class Dashboard extends Component {
   //TODO: nem működik, hibás a grid ibrary, nem kezeli jó a static-ot
   // lock módosítása
   onLockItem = (component) => {
+    console.log('onLockItem');
+    console.log(component);
     // másolat a régiekről
     let newLayout = this.state.layout.lg.slice();
 
