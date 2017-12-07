@@ -89,10 +89,40 @@ const uploadFile = (req, res, next) => {
 };
 
 
+// komponens lista betöltése
+const fetchComponentType = (req, res, next) => {
+  const collection = db.collection('components');
+
+  collection.find().toArray((err, component) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(component);
+    }
+  });
+};
+
+
+// komponens lista betöltése
+const loadGridPosition = (req, res, next) => {
+  const collection = db.collection('layouts');
+
+  collection.find().toArray((err, layout) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(layout);
+    }
+  });
+};
+
+
 module.exports = {
   getAllUsers,
   usaZip,
   secretUsers,
   createXls,
-  uploadFile
+  uploadFile,
+  fetchComponentType,
+  loadGridPosition
 };

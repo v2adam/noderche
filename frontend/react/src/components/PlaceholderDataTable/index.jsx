@@ -3,7 +3,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PropTypes from "prop-types";
 
 
-export class PlaceholderDataTable extends Component {
+export default class PlaceholderDataTable extends Component {
 
 
   static customLabel(cell, row) {

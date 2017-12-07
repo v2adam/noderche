@@ -5,6 +5,7 @@ import DraggableComponent from "./components/DraggableComponent"
 
 export default class Source extends Component {
 
+
   onDragStart = (id) => {
     this.props.onDragStart(this.props.components.find(w => w.id.toString() === id.toString()));
   };

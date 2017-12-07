@@ -13,13 +13,13 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       nextTargetId: 0,
-      source: this.props.source,
       target: this.props.target,
       draggedObject: undefined,
       isEditing: this.props.isEditing,
       layout: this.props.layout
     };
   }
+
 
   onDragStart = (component) => {
     if (_.isUndefined(component)) {
@@ -109,6 +109,7 @@ export default class Dashboard extends Component {
   // szerkesztés gomb hatására
   saveChanges = () => {
     console.log('Save changes');
+    console.log(this.state.layout)
   };
 
 
@@ -154,7 +155,7 @@ export default class Dashboard extends Component {
           </button>
         </div>
         <div id="data">
-          <Source components={this.state.source}
+          <Source components={this.props.source}
                   currentWidget={this.state.draggedObject}
                   onDragStart={this.onDragStart}/>
 
@@ -185,3 +186,4 @@ Dashboard.propTypes = {
   layout: PropTypes.objectOf(PropTypes.array),
   isEditing: PropTypes.bool
 };
+
