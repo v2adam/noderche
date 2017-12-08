@@ -11,9 +11,10 @@ export const fetchComponentType = async () => {
 };
 
 
-export const loadGridPosition = () => {
+export const loadGridPosition = async () => {
   try {
-    return axios('/api/v1/util/load_grid_position');
+    const result = await axios('/api/v1/util/load_grid_position');
+    return result.data;
   } catch (err) {
     return err;
   }

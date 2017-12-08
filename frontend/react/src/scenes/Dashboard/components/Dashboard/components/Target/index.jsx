@@ -61,6 +61,10 @@ export default class TargetContainer extends Component {
   };
 
   render() {
+    console.log('render3');
+    console.log(this.props.layouts);
+    console.log(this.props.widgets);
+
     return (
       <div id="target" className="targetDiv"
            onDrop={(event) => this.onComponentDropped(event)}

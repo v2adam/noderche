@@ -3,7 +3,7 @@ import _ from 'lodash';
 import FilterableList from '../../components/FilterableList';
 import Dashboard from "./components/Dashboard";
 import './style.css';
-import { fetchComponentType } from "../../services/Dashboard";
+import { fetchComponentType, loadGridPosition } from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
 import Placeholder from "../../components/Placeholder";
 import PlaceholderDataTable from "../../components/PlaceholderDataTable";
@@ -12,11 +12,16 @@ export default class DashboardMain extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { componentTypes: [] }
+    this.state = {
+      componentTypes: [],
+      gridPosition: { lg: [] },
+      target: []
+    }
   }
 
   componentDidMount() {
-    this.loadComponentType().catch(err => console.log(err));
+    this.loadComponentType().then(() => this.mapSourceComponents()).catch(err => console.log(err));
+    this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err));
   }
 
 
@@ -25,15 +30,23 @@ export default class DashboardMain extends Component {
       const fetchedComponents = await fetchComponentType();
       this.setState({ componentTypes: fetchedComponents });
     } catch (err) {
-      console.log('fetchedComponents failed' + err);
+      console.log('loadComponentType failed' + err);
     }
-
-    this.mapComponents();
-
   };
 
 
-  mapComponents = () => {
+  loadGridPositionFromDb = async () => {
+    try {
+      const fetchedPosition = await loadGridPosition();
+      const lg = { lg: fetchedPosition };
+      this.setState({ gridPosition: lg });
+    } catch (err) {
+      console.log('loadGridPositionFromDb failed' + err);
+    }
+  };
+
+
+  mapSourceComponents = () => {
     const unMapped = this.state.componentTypes.slice();
     const mapped = _.map(unMapped, (componentType) => this.mapWithWidget(componentType));
     this.setState({ componentTypes: mapped });
@@ -91,7 +104,36 @@ export default class DashboardMain extends Component {
   };
 
 
+  mapTargetComponents = () => {
+    const mappedTarget = _.map(this.state.gridPosition.lg, (position) => this.mapTarget(position));
+    this.setState({ target: mappedTarget });
+  };
+
+
+  mapTarget = (position) => {
+    let mappedComponent;
+
+    const fullId = position.i;
+    const type = parseInt(fullId.substr(0, fullId.indexOf('_')));
+
+    mappedComponent = Object.assign({}, _.find(this.state.componentTypes, { id: type }));
+    mappedComponent.id = fullId;
+
+    return mappedComponent;
+
+  };
+
+
+  updateTarget = (newTarget) => {
+    this.setState({ target: newTarget });
+  };
+
+
   render() {
-    return <Dashboard source={this.state.componentTypes}/>
+
+    return <Dashboard source={this.state.componentTypes}
+                      layout={this.state.gridPosition}
+                      target={this.state.target}
+                      updateTarget={this.updateTarget}/>
   }
 }

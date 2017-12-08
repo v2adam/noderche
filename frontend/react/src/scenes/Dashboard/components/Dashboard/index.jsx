@@ -13,11 +13,13 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       nextTargetId: 0,
-      target: this.props.target,
       draggedObject: undefined,
       isEditing: this.props.isEditing,
-      layout: this.props.layout
     };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ layout: this.props.layout });
   }
 
 
@@ -37,7 +39,6 @@ export default class Dashboard extends Component {
     });
     const layouts = { lg: newLayout };
     this.setState({ layout: layouts });
-    console.log(this.state.layout);
   };
 
 
@@ -49,12 +50,10 @@ export default class Dashboard extends Component {
 
   // új elem hozzáadása a rácshoz
   addComponentToTarget = (component) => {
-    let newTarget = this.state.target.slice();
     let newLayout = this.state.layout.lg.slice();
     const id = this.getNextTargetId();
     let newComponent = Object.assign({}, component);
     newComponent.id = component.id + "_" + id;
-    newTarget.push(newComponent);
     newLayout.push({
       x: 0,
       y: 0,
@@ -63,23 +62,28 @@ export default class Dashboard extends Component {
       i: component.id + "_" + id,
       minW: component.defWidth,
       minH: component.defHeight,
-      static: this.state.isEditing,
+      static: this.state.isEditing
     });
     this.setState({
-      target: newTarget,
       layout: { lg: newLayout },
       currentWidget: undefined,
       draggedObject: undefined
     });
+
+
+    let newTarget = this.props.target.slice();
+    newTarget.push(newComponent);
+    this.props.updateTarget(newTarget);
+
   };
 
 
   // szerkesztés gomb hatására
   changeStatic = () => {
+    console.log('changeStatic');
+
     const isEditing = !this.state.isEditing;
     let newLayout = this.state.layout.lg.slice();
-    console.log(newLayout);
-
 
     if (newLayout.length > 0 && newLayout[newLayout.length - 1].i === "temp") {
       newLayout.splice(-1, 1);
@@ -159,7 +163,7 @@ export default class Dashboard extends Component {
                   currentWidget={this.state.draggedObject}
                   onDragStart={this.onDragStart}/>
 
-          <Target widgets={this.state.target}
+          <Target widgets={this.props.target}
                   layouts={this.state.layout}
                   underEdit={this.state.isEditing}
                   currentWidget={this.state.draggedObject}
@@ -184,6 +188,7 @@ Dashboard.propTypes = {
   target: PropTypes.array,
   source: PropTypes.array,
   layout: PropTypes.objectOf(PropTypes.array),
-  isEditing: PropTypes.bool
+  isEditing: PropTypes.bool,
+  updateTarget: PropTypes.func.isRequired
 };
 
