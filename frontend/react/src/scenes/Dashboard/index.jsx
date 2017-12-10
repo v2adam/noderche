@@ -38,8 +38,11 @@ export default class DashboardMain extends Component {
   loadGridPositionFromDb = async () => {
     try {
       const fetchedPosition = await loadGridPosition();
-      const lg = { lg: fetchedPosition.position };
+
+      //findOne nem hoz vissza semmit, kell a default []
+      const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
       this.setState({ gridPosition: lg });
+
     } catch (err) {
       console.log('loadGridPositionFromDb failed' + err);
     }
