@@ -38,7 +38,7 @@ export default class DashboardMain extends Component {
   loadGridPositionFromDb = async () => {
     try {
       const fetchedPosition = await loadGridPosition();
-      const lg = { lg: fetchedPosition };
+      const lg = { lg: fetchedPosition.position };
       this.setState({ gridPosition: lg });
     } catch (err) {
       console.log('loadGridPositionFromDb failed' + err);

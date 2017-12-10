@@ -7,6 +7,7 @@ const mySchema = require('../mongoDB/schema/index');
 const { upload } = require('./fileupload');
 
 const RegisteredUsersModel = mongoose.model('RegisteredUsers', mySchema.registeredUsers);
+const PositionModel = require('../mongoDB/models/firstExample/positionModel');
 
 // hozzon le minden user-t
 const getAllUsers = (req, res, next) => {
@@ -103,15 +104,40 @@ const fetchComponentType = (req, res, next) => {
 };
 
 
-// komponens lista betöltése
+// pozíciók betöltése
 const loadGridPosition = (req, res, next) => {
-  const collection = db.collection('layouts');
-
-  collection.find().toArray((err, layout) => {
+  PositionModel.findOne({ userId: req.currentUser.userId }, (err, layout) => {
     if (err) {
       res.status(500).send(err);
     } else {
       res.status(200).send(layout);
+    }
+  });
+};
+
+
+// új pozíció mentése
+const saveGridPosition = async (req, res, next) => {
+
+  try {
+    await PositionModel.remove({ userId: req.currentUser.userId });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+
+  const payload = {
+    userId: req.currentUser.userId,
+    position: req.body.newPosition.lg
+  };
+
+  const saveThis = new PositionModel(payload);
+
+  saveThis.save((err) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(201);
     }
   });
 };
@@ -124,5 +150,6 @@ module.exports = {
   createXls,
   uploadFile,
   fetchComponentType,
-  loadGridPosition
+  loadGridPosition,
+  saveGridPosition
 };

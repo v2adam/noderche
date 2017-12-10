@@ -5,7 +5,7 @@ import _ from "lodash";
 import PropTypes from 'prop-types';
 import Source from "./components/Source";
 import Target from "./components/Target";
-
+import { saveGridPosition } from "../../../../services/Dashboard"
 
 export default class Dashboard extends Component {
 
@@ -113,7 +113,10 @@ export default class Dashboard extends Component {
   // szerkesztés gomb hatására
   saveChanges = () => {
     console.log('Save changes');
-    console.log(this.state.layout)
+    console.log(this.state.layout);
+
+    saveGridPosition(this.state.layout).then((res) => console.log(res)).catch((err) => console.log(err));
+
   };
 
 
