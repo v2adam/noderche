@@ -11,9 +11,10 @@ const { fetchComponentType, loadGridPosition, saveGridPosition } = require('../.
 
 router.get('/fetch_random_giphy', loadRandomGiphyByTag);
 
+router.get('/fetch_components', fetchComponentType);
+
 router.use(authenticate);
 
-router.get('/fetch_components', fetchComponentType);
 router.get('/grid_position', loadGridPosition);
 router.post('/grid_position', saveGridPosition);
 

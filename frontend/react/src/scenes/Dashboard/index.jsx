@@ -49,10 +49,10 @@ export default class DashboardMain extends Component {
   };
 
 
-  mapSourceComponents = () => {
+  mapSourceComponents = async () => {
     const unMapped = this.state.componentTypes.slice();
     const mapped = _.map(unMapped, (componentType) => this.mapWithWidget(componentType));
-    this.setState({ componentTypes: mapped });
+    await this.setState({ componentTypes: mapped });
   };
 
 
@@ -107,16 +107,18 @@ export default class DashboardMain extends Component {
   };
 
 
-  mapTargetComponents = () => {
+  mapTargetComponents = async () => {
     const mappedTarget = _.map(this.state.gridPosition.lg, (position) => this.mapTarget(position));
-    this.setState({ target: mappedTarget });
+    await this.setState({ target: mappedTarget });
   };
 
 
   mapTarget = (position) => {
     let mappedComponent;
 
+    // 5_1512981379884
     const fullId = position.i;
+    // 5
     const type = parseInt(fullId.substr(0, fullId.indexOf('_')));
 
     mappedComponent = Object.assign({}, _.find(this.state.componentTypes, { id: type }));
@@ -137,12 +139,19 @@ export default class DashboardMain extends Component {
   };
 
 
+  // {lg: newLayout} -ként lesz az input
+  updatePosition = (newPosition) => {
+    console.log('updatePosition');
+    this.setState({ gridPosition: newPosition });
+  };
+
   render() {
 
     return <Dashboard source={this.state.componentTypes}
                       layout={this.state.gridPosition}
                       target={this.state.target}
                       updateTarget={this.updateTarget}
-                      removeFromTarget={this.removeFromTarget}/>
+                      removeFromTarget={this.removeFromTarget}
+                      updatePosition={this.updatePosition}/>
   }
 }

@@ -14,7 +14,7 @@
     "debug": "^2.6.9",
     "excel-as-json": "^2.0.1",
     "express": "^4.16.2",
-    "express-rate-limit": "^2.9.0",
+    "express-rate-limit": "^2.11.0",
     "fetch": "^1.1.0",
     "fs": "0.0.1-security",
     "helmet": "^3.9.0",
@@ -22,7 +22,7 @@
     "json2xls": "^0.1.2",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
-    "moment": "^2.19.1",
+    "moment": "^2.19.4",
     "mongoose": "^4.12.3",
     "mongoose-sequence": "^4.0.1",
     "morgan": "~1.8.1",
@@ -31,7 +31,7 @@
     "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
+    "eslint": "^4.13.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",

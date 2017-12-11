@@ -7,6 +7,8 @@ const positionSchema = mongoose.Schema({
     i: String,
     minH: Number,
     minW: Number,
+    maxH: Number,
+    maxW: Number,
     static: Boolean,
     w: Number,
     x: Number,
