@@ -126,7 +126,7 @@ export default class Dashboard extends Component {
     this.props.removeFromTarget(id);
   };
 
-  //TODO: nem működik, hibás a grid ibrary, nem kezeli jó a static-ot
+  //TODO: nem működik, hibás a grid library, nem kezeli jó a static-ot
   // lock módosítása
   onLockItem = (component) => {
     console.log('onLockItem');
