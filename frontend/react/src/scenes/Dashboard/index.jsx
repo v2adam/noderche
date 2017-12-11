@@ -132,11 +132,17 @@ export default class DashboardMain extends Component {
   };
 
 
+  removeFromTarget = (id) => {
+    this.setState({ target: _.reject(this.state.target, { id: id }) });
+  };
+
+
   render() {
 
     return <Dashboard source={this.state.componentTypes}
                       layout={this.state.gridPosition}
                       target={this.state.target}
-                      updateTarget={this.updateTarget}/>
+                      updateTarget={this.updateTarget}
+                      removeFromTarget={this.removeFromTarget}/>
   }
 }

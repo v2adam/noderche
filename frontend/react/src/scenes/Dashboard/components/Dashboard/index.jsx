@@ -122,7 +122,8 @@ export default class Dashboard extends Component {
 
   // elem eltávolítása
   onRemoveItem = (id) => {
-    this.setState({ target: _.reject(this.state.target, { id: id }) });
+    this.props.removeFromTarget(id);
+
   };
 
   //TODO: nem működik, hibás a grid ibrary, nem kezeli jó a static-ot
@@ -192,6 +193,8 @@ Dashboard.propTypes = {
   source: PropTypes.array,
   layout: PropTypes.objectOf(PropTypes.array),
   isEditing: PropTypes.bool,
-  updateTarget: PropTypes.func.isRequired
+  updateTarget: PropTypes.func.isRequired,
+  removeFromTarget: PropTypes.func.isRequired
+
 };
 
