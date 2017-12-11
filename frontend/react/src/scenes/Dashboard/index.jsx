@@ -28,7 +28,7 @@ export default class DashboardMain extends Component {
   loadComponentType = async () => {
     try {
       const fetchedComponents = await fetchComponentType();
-      this.setState({ componentTypes: fetchedComponents });
+      await this.setState({ componentTypes: fetchedComponents });
     } catch (err) {
       console.log('loadComponentType failed' + err);
     }
@@ -41,7 +41,7 @@ export default class DashboardMain extends Component {
 
       //findOne nem hoz vissza semmit, kell a default []
       const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
-      this.setState({ gridPosition: lg });
+      await this.setState({ gridPosition: lg });
 
     } catch (err) {
       console.log('loadGridPositionFromDb failed' + err);

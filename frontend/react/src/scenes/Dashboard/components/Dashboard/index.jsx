@@ -12,7 +12,6 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nextTargetId: 0,
       draggedObject: undefined,
       isEditing: this.props.isEditing,
     };
@@ -42,11 +41,11 @@ export default class Dashboard extends Component {
   };
 
 
+  // TODO: valami biztosabb megoldást kitalálni
   getNextTargetId = () => {
-    const id = this.state.nextTargetId;
-    this.setState({ nextTargetId: id + 1 });
-    return id;
+    return (new Date).getTime();
   };
+
 
   // új elem hozzáadása a rácshoz
   addComponentToTarget = (component) => {
@@ -116,6 +115,7 @@ export default class Dashboard extends Component {
     console.log(this.state.layout);
 
     saveGridPosition(this.state.layout).then((res) => console.log(res)).catch((err) => console.log(err));
+
 
   };
 
