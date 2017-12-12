@@ -14,7 +14,7 @@ import PrivateRoute from './misc/privateRoute';
 import ChartSandBox from './scenes/ChartSandBox';
 import AsyncExample from './scenes/AsyncExample';
 import FirstExampleMain from './scenes/FirstComplexExample';
-import DashboardMain from "./scenes/Dashboard";
+import DashboardEditScene from "./scenes/DashboardEditScene";
 
 class App extends Component {
 
@@ -33,7 +33,7 @@ class App extends Component {
           <PrivateRoute path="/first_example" component={FirstExampleMain}
                         isAuthenticated={this.props.isAuthenticated}/>
 
-          <PrivateRoute path="/dashboard" component={DashboardMain}
+          <PrivateRoute path="/dashboard_editor" component={DashboardEditScene}
                         isAuthenticated={this.props.isAuthenticated}/>
 
           {/* this.props.match.params.id nyerhető ki

@@ -7,7 +7,7 @@ import Source from "./components/Source";
 import Target from "./components/Target";
 import { saveGridPosition } from "../../../../services/Dashboard"
 
-export default class Dashboard extends Component {
+export default class DashboardEditor extends Component {
 
   constructor(props) {
     super(props);
@@ -182,14 +182,14 @@ export default class Dashboard extends Component {
   }
 }
 
-Dashboard.defaultProps = {
+DashboardEditor.defaultProps = {
   target: [],
   source: [],
   layout: { lg: [] },
   isEditing: true
 };
 
-Dashboard.propTypes = {
+DashboardEditor.propTypes = {
   target: PropTypes.array,
   source: PropTypes.array,
   layout: PropTypes.objectOf(PropTypes.array),

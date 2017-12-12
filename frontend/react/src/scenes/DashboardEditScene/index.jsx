@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import FilterableList from '../../components/FilterableList';
-import Dashboard from "./components/Dashboard";
+import DashboardEditor from "./components/DashboardEditor";
 import './style.css';
 import { fetchComponentType, loadGridPosition } from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
@@ -10,7 +10,7 @@ import PlaceholderDataTable from "../../components/PlaceholderDataTable";
 import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
 
 
-export default class DashboardMain extends Component {
+export default class DashboardEditScene extends Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,7 @@ export default class DashboardMain extends Component {
   loadGridPositionFromDb = async () => {
     try {
 
-      const dashboardId = 101;
+      const dashboardId = 100;
 
       const fetchedPosition = await loadGridPosition(dashboardId);
 
@@ -168,7 +168,7 @@ export default class DashboardMain extends Component {
           </ButtonGroup>
         </ButtonToolbar>
 
-        <Dashboard source={this.state.componentTypes}
+        <DashboardEditor source={this.state.componentTypes}
                    layout={this.state.gridPosition}
                    target={this.state.target}
                    updateTarget={this.updateTarget}
