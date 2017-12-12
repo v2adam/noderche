@@ -15,6 +15,7 @@ import ChartSandBox from './scenes/ChartSandBox';
 import AsyncExample from './scenes/AsyncExample';
 import FirstExampleMain from './scenes/FirstComplexExample';
 import DashboardEditScene from "./scenes/DashboardEditScene";
+import DashboardViewScene from "./scenes/DashboardViewScene";
 
 class App extends Component {
 
@@ -34,6 +35,8 @@ class App extends Component {
                         isAuthenticated={this.props.isAuthenticated}/>
 
           <PrivateRoute path="/dashboard_editor" component={DashboardEditScene}
+                        isAuthenticated={this.props.isAuthenticated}/>
+          <PrivateRoute path="/dashboard" component={DashboardViewScene}
                         isAuthenticated={this.props.isAuthenticated}/>
 
           {/* this.props.match.params.id nyerhető ki

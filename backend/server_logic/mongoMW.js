@@ -115,7 +115,7 @@ const loadGridPosition = async (req, res, next) => {
     });
     const layout = await query.exec();
     // check private dashboard
-    if (layout.private) {
+    if (!_.isEmpty(layout) && layout.private) {
       if (_.isUndefined(req.currentUser)) {
         res.sendStatus(403);
       } else {

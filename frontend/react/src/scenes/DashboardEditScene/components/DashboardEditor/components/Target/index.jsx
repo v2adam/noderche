@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from "lodash";
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { Button, Panel } from "react-bootstrap";
+import { getDashboardSettings } from '../../../../../../misc/utils';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -34,17 +35,6 @@ export default class TargetContainer extends Component {
     );
   };
 
-
-  // default beállítások a grid-hez
-  getDashboardSettings = () => {
-    return ({
-      className: "layout",
-      cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-      breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
-      rowHeight: 100,
-    });
-  };
-
   allowDrop = (event) => {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
@@ -74,7 +64,7 @@ export default class TargetContainer extends Component {
           onLayoutChange={this.props.onLayoutChange}
           layouts={this.props.layouts}
           compactType={null}
-          {...this.getDashboardSettings()}>
+          {...getDashboardSettings()}>
           {_.map(this.props.widgets, (el) => this.createTargetComponent(el))}
         </ResponsiveReactGridLayout>
       </div>
