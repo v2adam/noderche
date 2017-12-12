@@ -7,6 +7,8 @@ import { fetchComponentType, loadGridPosition } from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
 import Placeholder from "../../components/Placeholder";
 import PlaceholderDataTable from "../../components/PlaceholderDataTable";
+import { Button, ButtonGroup, ButtonToolbar } from "react-bootstrap";
+
 
 export default class DashboardMain extends Component {
 
@@ -37,7 +39,10 @@ export default class DashboardMain extends Component {
 
   loadGridPositionFromDb = async () => {
     try {
-      const fetchedPosition = await loadGridPosition();
+
+      const dashboardId = 101;
+
+      const fetchedPosition = await loadGridPosition(dashboardId);
 
       //findOne nem hoz vissza semmit, kell a default []
       const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
@@ -141,10 +146,34 @@ export default class DashboardMain extends Component {
 
   render() {
 
-    return <Dashboard source={this.state.componentTypes}
-                      layout={this.state.gridPosition}
-                      target={this.state.target}
-                      updateTarget={this.updateTarget}
-                      removeFromTarget={this.removeFromTarget}/>
+    return (
+
+      <div>
+        <ButtonToolbar>
+          <ButtonGroup>
+            <Button>1</Button>
+            <Button>2</Button>
+            <Button>3</Button>
+            <Button>4</Button>
+          </ButtonGroup>
+
+          <ButtonGroup>
+            <Button>5</Button>
+            <Button>6</Button>
+            <Button>7</Button>
+          </ButtonGroup>
+
+          <ButtonGroup>
+            <Button>8</Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+
+        <Dashboard source={this.state.componentTypes}
+                   layout={this.state.gridPosition}
+                   target={this.state.target}
+                   updateTarget={this.updateTarget}
+                   removeFromTarget={this.removeFromTarget}/>
+      </div>
+    );
   }
 }

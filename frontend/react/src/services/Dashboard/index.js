@@ -11,9 +11,9 @@ export const fetchComponentType = async () => {
 };
 
 
-export const loadGridPosition = async () => {
+export const loadGridPosition = async (dashboardId) => {
   try {
-    const result = await axios('/api/v1/util/grid_position');
+    const result = await axios(`/api/v1/util/grid_position/${dashboardId}`);
     return result.data;
   } catch (err) {
     return err;

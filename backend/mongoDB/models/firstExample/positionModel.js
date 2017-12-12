@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const positionSchema = mongoose.Schema({
-  userId: Number,
+  dashboardId: Number,
+  private: { type: Boolean, default: false },
+  _user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'RegisteredUsers'
+  },
   position: [{
     h: Number,
     i: String,
@@ -17,6 +23,8 @@ const positionSchema = mongoose.Schema({
   ],
   created_ts: { type: Date, default: Date.now }
 }, { versionKey: false, runSettersOnQuery: true });
+
+positionSchema.plugin(AutoIncrement, { inc_field: 'dashboardId' });
 
 const PositionModel = mongoose.model('layouts', positionSchema);
 

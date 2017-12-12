@@ -13,9 +13,13 @@ router.get('/fetch_random_giphy', loadRandomGiphyByTag);
 
 router.get('/fetch_components', fetchComponentType);
 
+
 router.use(authenticate);
 
-router.get('/grid_position', loadGridPosition);
+
+router.get('/grid_position/:dashboardId', loadGridPosition);
+
+
 router.post('/grid_position', saveGridPosition);
 
 

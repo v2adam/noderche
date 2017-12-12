@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // excelt csinál JSON-ből
 const json2xls = require('json2xls');
+const _ = require('lodash');
 
 const db = require('../mongoDB/index');
 const mySchema = require('../mongoDB/schema/index');
@@ -104,18 +105,38 @@ const fetchComponentType = (req, res, next) => {
 };
 
 
-// pozíciók betöltése
-const loadGridPosition = (req, res, next) => {
-  PositionModel.findOne({ userId: req.currentUser.userId }, (err, layout) => {
-    if (err) {
-      res.status(500).send(err);
+// adott dashboardhoz pozíciók letöltése
+const loadGridPosition = async (req, res, next) => {
+  const id = req.params.dashboardId;
+  try {
+    const query = PositionModel.findOne({ dashboardId: id }).select('-_id').populate({
+      path: '_user',
+      select: 'userId username -_id',
+    });
+    const layout = await query.exec();
+    // check private dashboard
+    if (layout.private) {
+      if (_.isUndefined(req.currentUser)) {
+        res.sendStatus(403);
+      } else {
+        const ownerFromDb = layout._user.userId;
+        const userFromToken = req.currentUser.userId;
+        if (ownerFromDb !== userFromToken) {
+          res.sendStatus(403);
+        } else {
+          res.status(200).send(layout);
+        }
+      }
     } else {
       res.status(200).send(layout);
     }
-  });
+  } catch (err) {
+    res.status(500);
+  }
 };
 
 
+// TODO: dashboard)d-t bevezetni
 // új pozíció mentése
 const saveGridPosition = async (req, res, next) => {
 
@@ -125,9 +146,8 @@ const saveGridPosition = async (req, res, next) => {
     res.status(500).send(err);
   }
 
-
   const payload = {
-    userId: req.currentUser.userId,
+    _user: req.currentUser._id,
     position: req.body.newPosition.lg
   };
 
