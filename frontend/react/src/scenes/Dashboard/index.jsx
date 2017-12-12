@@ -139,19 +139,12 @@ export default class DashboardMain extends Component {
   };
 
 
-  // {lg: newLayout} -ként lesz az input
-  updatePosition = (newPosition) => {
-    console.log('updatePosition');
-    this.setState({ gridPosition: newPosition });
-  };
-
   render() {
 
     return <Dashboard source={this.state.componentTypes}
                       layout={this.state.gridPosition}
                       target={this.state.target}
                       updateTarget={this.updateTarget}
-                      removeFromTarget={this.removeFromTarget}
-                      updatePosition={this.updatePosition}/>
+                      removeFromTarget={this.removeFromTarget}/>
   }
 }

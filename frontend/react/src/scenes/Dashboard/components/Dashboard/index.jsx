@@ -17,6 +17,10 @@ export default class Dashboard extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    this.setState({ layout: this.props.layout });
+  }
+
 
   onDragStart = (component) => {
     if (_.isUndefined(component)) {
@@ -35,7 +39,7 @@ export default class Dashboard extends Component {
     });
 
     const layouts = { lg: newLayout };
-    this.props.updatePosition(layouts);
+    this.setState({ layout: layouts });
   };
 
 
@@ -48,7 +52,7 @@ export default class Dashboard extends Component {
   // új elem hozzáadása a rácshoz
   addComponentToTarget = (component) => {
     console.log('addComponentToTarget');
-    let newLayout = this.props.layout.lg.slice();
+    let newLayout = this.state.layout.lg.slice();
     const id = this.getNextTargetId();
     let newComponent = Object.assign({}, component);
     newComponent.id = component.id + "_" + id;
@@ -63,11 +67,10 @@ export default class Dashboard extends Component {
       static: this.state.isEditing
     });
     this.setState({
+      layout: { lg: newLayout },
       currentWidget: undefined,
       draggedObject: undefined
     });
-
-    this.props.updatePosition({ lg: newLayout });
 
 
     // target-be is bekerül az új
@@ -83,7 +86,7 @@ export default class Dashboard extends Component {
     console.log('changeStatic');
 
     const isEditing = !this.state.isEditing;
-    let newLayout = this.props.layout.lg.slice();
+    let newLayout = this.state.layout.lg.slice();
 
     if (newLayout.length > 0 && newLayout[newLayout.length - 1].i === "temp") {
       newLayout.splice(-1, 1);
@@ -104,11 +107,10 @@ export default class Dashboard extends Component {
 
     const layouts = { lg: newLayout };
     this.setState({
+      layout: layouts,
       isEditing: isEditing
     });
 
-
-    this.props.updatePosition(layouts);
 
   };
 
@@ -116,7 +118,7 @@ export default class Dashboard extends Component {
   // pozíciók mentése DB-be
   saveChanges = () => {
     console.log('Save changes');
-    const filtered = _.reject(this.props.layout.lg, { i: 'temp' });
+    const filtered = _.reject(this.state.layout.lg, { i: 'temp' });
     saveGridPosition({ lg: filtered }).then((res) => console.log(res)).catch((err) => console.log(err));
   };
 
@@ -131,10 +133,10 @@ export default class Dashboard extends Component {
   onLockItem = (component) => {
     console.log('onLockItem');
 
-    let newLayout = this.props.layout.lg.slice();
+    let newLayout = this.state.layout.lg.slice();
 
     // komponens átállítása
-    const temp = Object.assign({}, _.find(this.props.layout.lg, { i: component.id }));
+    const temp = Object.assign({}, _.find(this.state.layout.lg, { i: component.id }));
     temp.static = !temp.static;
 
     // eltávolítás a régiekből
@@ -145,8 +147,9 @@ export default class Dashboard extends Component {
 
     const layouts = { lg: newLayout };
 
-    this.props.updatePosition(layouts);
-
+    this.setState({
+      layout: layouts,
+    });
   };
 
 
@@ -166,7 +169,7 @@ export default class Dashboard extends Component {
                   onDragStart={this.onDragStart}/>
 
           <Target widgets={this.props.target}
-                  layouts={this.props.layout}
+                  layouts={this.state.layout}
                   underEdit={this.state.isEditing}
                   currentWidget={this.state.draggedObject}
                   onRemoveItem={this.onRemoveItem}
@@ -192,7 +195,6 @@ Dashboard.propTypes = {
   layout: PropTypes.objectOf(PropTypes.array),
   isEditing: PropTypes.bool,
   updateTarget: PropTypes.func.isRequired,
-  removeFromTarget: PropTypes.func.isRequired,
-  updatePosition: PropTypes.func.isRequired
+  removeFromTarget: PropTypes.func.isRequired
 };
 

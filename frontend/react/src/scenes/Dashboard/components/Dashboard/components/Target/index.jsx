@@ -60,13 +60,6 @@ export default class TargetContainer extends Component {
     this.props.onComponentDropped(this.props.currentWidget);
   };
 
-
-  // TODO: STRML/react-grid-layout egy bughalmaz ha megjavul az onLayoutChange, akkor ezt ki lehet szedni
-  helpMe = (layout) => {
-    this.props.onLayoutChange(layout, { lg: layout });
-  };
-
-
   render() {
     console.log('---------render3------------');
     console.log(this.props.layouts);
@@ -79,8 +72,6 @@ export default class TargetContainer extends Component {
            onDragOver={(event) => this.allowDrop(event)}>
         <ResponsiveReactGridLayout
           onLayoutChange={this.props.onLayoutChange}
-          onDrag={(layout, allLayout) => this.helpMe(layout)}
-          onResize={(layout, allLayout) => this.helpMe(layout)}
           layouts={this.props.layouts}
           compactType={null}
           {...this.getDashboardSettings()}>
