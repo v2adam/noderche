@@ -36,8 +36,11 @@ class App extends Component {
 
           <PrivateRoute path="/dashboard_editor" component={DashboardEditScene}
                         isAuthenticated={this.props.isAuthenticated}/>
+          <PrivateRoute path="/dashboard/:id" component={DashboardViewScene}
+                        isAuthenticated={this.props.isAuthenticated}/>
           <PrivateRoute path="/dashboard" component={DashboardViewScene}
                         isAuthenticated={this.props.isAuthenticated}/>
+
 
           {/* this.props.match.params.id nyerhető ki
           <Route path="/valami/:id"

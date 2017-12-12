@@ -18,7 +18,7 @@ export default class DashboardViewScene extends Component {
       componentTypes: [],
       gridPosition: { lg: [] },
       target: [],
-      dashboardId: 0
+      dashboardId: this.props.match.params.id
     }
   }
 
