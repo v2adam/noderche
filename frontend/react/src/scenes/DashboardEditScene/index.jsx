@@ -4,8 +4,8 @@ import FilterableList from '../../components/FilterableList';
 import DashboardEditor from "./components/DashboardEditor";
 import './style.css';
 import {
-  deleteDashboard, fetchComponentType, fetchExistingDashboard,
-  loadGridPosition
+  deleteDashboard, fetchComponentType, fetchExistingDashboard, loadGridPosition,
+  newDashboard, saveGridPosition
 } from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
 import Placeholder from "../../components/Placeholder";
@@ -196,16 +196,47 @@ export default class DashboardEditScene extends Component {
   };
 
 
+  newDashboard = () => {
+    this.newDashboardFromDb().catch((err) => console.log(err));
+  };
+
+
+  newDashboardFromDb = async () => {
+    try {
+      const newDashboardData = await newDashboard();
+      if (newDashboardData.status === 201) {
+        this.setState({
+          dashboardId: newDashboardData.data.dashboardId,
+          gridPosition: { lg: [] },
+          target: []
+        });
+        this.fetchExistingDashboard().then((res) => console.log(res)).catch(err => console.log(err));
+      }
+    } catch (err) {
+      console.log('newDashboardFromDb failed' + err);
+    }
+  };
+
+
+  // pozíciók mentése DB-be
+  saveChanges = (newLayout) => {
+    saveGridPosition(newLayout, this.state.dashboardId).then((res) => console.log(res)).catch((err) => console.log(err));
+  };
+
+
   render() {
     return (
       <div>
         {this.generateButtonToolbar()}
+        <Button className='btn btn-info' onClick={() => this.newDashboard()}>New</Button>
+        {this.state.dashboardId}
         <DashboardEditor source={this.state.componentTypes}
                          layout={this.state.gridPosition}
                          target={this.state.target}
                          updateTarget={this.updateTarget}
                          removeFromTarget={this.removeFromTarget}
-                         deleteDashboard={this.deleteDashboard}/>
+                         deleteDashboard={this.deleteDashboard}
+                         saveChanges={this.saveChanges}/>
       </div>
     );
   }

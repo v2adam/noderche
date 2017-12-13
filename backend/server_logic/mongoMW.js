@@ -104,6 +104,7 @@ const fetchComponentType = (req, res, next) => {
   });
 };
 
+
 // összes létező dashboard-ot adja vissza
 const fetchExistingDashboard = async (req, res, next) => {
   try {
@@ -116,7 +117,7 @@ const fetchExistingDashboard = async (req, res, next) => {
 };
 
 
-// adott dashboardhoz pozíciók letöltése
+// betöltés
 const loadGridPosition = async (req, res, next) => {
   const id = req.params.dashboardId;
   try {
@@ -147,33 +148,30 @@ const loadGridPosition = async (req, res, next) => {
 };
 
 
-// dashboard elrendezés változtatása esetén
-const saveGridPosition = async (req, res, next) => {
-
+// módosítás
+const modifyGridPosition = async (req, res, next) => {
+  const id = req.body.dashboardId;
   try {
-    const updated = await PositionModel.findOneAndUpdate({ dashboardId: 100 }, {
+    const updated = await PositionModel.findOneAndUpdate({ dashboardId: id }, {
       $set: {
         position: req.body.newPosition.lg,
         _user: req.currentUser._id
       }
     }, { new: true });
 
-    console.log(updated);
-
     if (_.isNull(updated)) {
-      // TODO: ha new, akkor hozza létre
-      res.status(204);
+      // ha nem találta meg, hogy melyik legyen update-elve
+      res.sendStatus(204);
     } else {
       res.sendStatus(201);
     }
   } catch (err) {
-    console.log(err);
     res.status(500);
   }
 };
 
 
-// adott dashboardhoz pozíciók letöltése
+// törlés
 const deleteGridPosition = async (req, res, next) => {
   const id = req.params.dashboardId;
   try {
@@ -190,6 +188,19 @@ const deleteGridPosition = async (req, res, next) => {
 };
 
 
+// létrehozás
+const newGridPosition = async (req, res, next) => {
+  try {
+    const user = req.currentUser;
+    const newPosition = new PositionModel({ _user: user });
+    await newPosition.save();
+    res.status(201).send(newPosition);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
+
 module.exports = {
   getAllUsers,
   usaZip,
@@ -198,7 +209,8 @@ module.exports = {
   uploadFile,
   fetchComponentType,
   loadGridPosition,
-  saveGridPosition,
+  modifyGridPosition,
   fetchExistingDashboard,
-  deleteGridPosition
+  deleteGridPosition,
+  newGridPosition
 };

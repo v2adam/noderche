@@ -5,7 +5,6 @@ import _ from "lodash";
 import PropTypes from 'prop-types';
 import Source from "./components/Source";
 import Target from "./components/Target";
-import { saveGridPosition } from "../../../../services/Dashboard"
 
 export default class DashboardEditor extends Component {
 
@@ -117,9 +116,8 @@ export default class DashboardEditor extends Component {
 
   // pozíciók mentése DB-be
   saveChanges = () => {
-    console.log('Save changes');
     const filtered = _.reject(this.state.layout.lg, { i: 'temp' });
-    saveGridPosition({ lg: filtered }).then((res) => console.log(res)).catch((err) => console.log(err));
+    this.props.saveChanges({ lg: filtered });
   };
 
 
@@ -204,6 +202,7 @@ DashboardEditor.propTypes = {
   isEditing: PropTypes.bool,
   updateTarget: PropTypes.func.isRequired,
   removeFromTarget: PropTypes.func.isRequired,
-  deleteDashboard: PropTypes.func.isRequired
+  deleteDashboard: PropTypes.func.isRequired,
+  saveChanges: PropTypes.func.isRequired
 };
 
