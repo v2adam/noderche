@@ -173,6 +173,23 @@ const saveGridPosition = async (req, res, next) => {
 };
 
 
+// adott dashboardhoz pozíciók letöltése
+const deleteGridPosition = async (req, res, next) => {
+  const id = req.params.dashboardId;
+  try {
+    const query = PositionModel.remove({ dashboardId: id });
+    const removeResult = await query.exec();
+    if (removeResult.result.n === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
+
 module.exports = {
   getAllUsers,
   usaZip,
@@ -182,5 +199,6 @@ module.exports = {
   fetchComponentType,
   loadGridPosition,
   saveGridPosition,
-  fetchExistingDashboard
+  fetchExistingDashboard,
+  deleteGridPosition
 };
