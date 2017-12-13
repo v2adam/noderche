@@ -10,7 +10,6 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class TargetContainer extends Component {
 
-  // komponensek egységes keretben
   createTargetComponent = (component) => {
     return (
       <div key={component.id.toString()} style={{ overflow: "hidden" }}
@@ -21,8 +20,6 @@ export default class TargetContainer extends Component {
             {`${component.title}_${component.id}`}
           </span>
             <span style={this.props.underEdit ? { display: "none" } : { float: "right" }}>
-              <Button bsStyle="primary" bsSize="xsmall"
-                      onClick={() => this.props.onLockItem(component)}>{component.static ? "Unlock" : "Lock"}</Button>
               <Button bsStyle="danger" bsSize="xsmall"
                       onClick={() => this.props.onRemoveItem(component.id)}>x</Button>
             </span>
@@ -42,7 +39,6 @@ export default class TargetContainer extends Component {
     event.preventDefault();
   };
 
-  // új elem hozzáadása a rácshoz
   onComponentDropped = (event) => {
     if (_.isUndefined(this.props.currentWidget)) {
       return;
@@ -51,11 +47,6 @@ export default class TargetContainer extends Component {
   };
 
   render() {
-    console.log('---------render3------------');
-    console.log(this.props.layouts);
-    console.log(this.props.widgets);
-    console.log('----------------------------');
-
     return (
       <div id="target" className="targetDiv"
            onDrop={(event) => this.onComponentDropped(event)}
@@ -80,7 +71,6 @@ TargetContainer.propTypes = {
   onLayoutChange: PropTypes.func.isRequired,
   onComponentDropped: PropTypes.func.isRequired,
   onRemoveItem: PropTypes.func.isRequired,
-  onLockItem: PropTypes.func.isRequired
 };
 
 TargetContainer.defaultProps = {

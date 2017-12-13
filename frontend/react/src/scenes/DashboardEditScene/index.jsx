@@ -33,6 +33,16 @@ export default class DashboardEditScene extends Component {
   }
 
 
+  fetchExistingDashboard = async () => {
+    try {
+      const allDashboardId = await fetchExistingDashboard();
+      await this.setState({ allDashboard: allDashboardId });
+    } catch (err) {
+      console.log('fetchExistingDashboard failed' + err);
+    }
+  };
+
+
   loadComponentType = async () => {
     try {
       const fetchedComponents = await fetchComponentType();
@@ -45,14 +55,10 @@ export default class DashboardEditScene extends Component {
 
   loadGridPositionFromDb = async () => {
     try {
-
-
       const fetchedPosition = await loadGridPosition(this.state.dashboardId);
-
       //findOne nem hoz vissza semmit, kell a default []
       const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
       await this.setState({ gridPosition: lg });
-
     } catch (err) {
       console.log('loadGridPositionFromDb failed' + err);
     }
@@ -155,14 +161,9 @@ export default class DashboardEditScene extends Component {
     });
   };
 
-  fetchExistingDashboard = async () => {
-    try {
-      const allDashboardId = await fetchExistingDashboard();
-      await this.setState({ allDashboard: allDashboardId });
-      console.log(allDashboardId);
-    } catch (err) {
-      console.log('fetchExistingDashboard failed' + err);
-    }
+
+  deleteDashboard = () => {
+    this.deleteDashboardFromDb().catch((err) => console.log(err));
   };
 
 
@@ -176,23 +177,6 @@ export default class DashboardEditScene extends Component {
     } catch (err) {
       console.log('fetchExistingDashboard failed' + err);
     }
-  };
-
-
-  deleteDashboard = () => {
-    this.deleteDashboardFromDb().catch((err) => console.log(err));
-  };
-
-
-  generateButtonToolbar = () => {
-    return (
-      <ButtonToolbar>
-        <ButtonGroup>
-          {_.map(this.state.allDashboard, (one) => <Button key={one.dashboardId}
-                                                           onClick={() => this.selectDashboard(one.dashboardId)}>{one.dashboardId}</Button>)}
-        </ButtonGroup>
-      </ButtonToolbar>
-    );
   };
 
 
@@ -221,6 +205,18 @@ export default class DashboardEditScene extends Component {
   // pozíciók mentése DB-be
   saveChanges = (newLayout) => {
     saveGridPosition(newLayout, this.state.dashboardId).then((res) => console.log(res)).catch((err) => console.log(err));
+  };
+
+
+  generateButtonToolbar = () => {
+    return (
+      <ButtonToolbar>
+        <ButtonGroup>
+          {_.map(this.state.allDashboard, (one) => <Button key={one.dashboardId}
+                                                           onClick={() => this.selectDashboard(one.dashboardId)}>{one.dashboardId}</Button>)}
+        </ButtonGroup>
+      </ButtonToolbar>
+    );
   };
 
 
