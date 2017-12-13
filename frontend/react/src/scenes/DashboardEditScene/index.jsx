@@ -4,8 +4,7 @@ import FilterableList from '../../components/FilterableList';
 import DashboardEditor from "./components/DashboardEditor";
 import './style.css';
 import {
-  fetchComponentType,
-  fetchExistingDashboard,
+  deleteDashboard, fetchComponentType, fetchExistingDashboard,
   loadGridPosition
 } from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
@@ -28,7 +27,7 @@ export default class DashboardEditScene extends Component {
   }
 
   componentDidMount() {
-    this.fetchExistingDashboard().then((res) => console.log(res)).catch(err => console.log(err));
+    this.fetchExistingDashboard();
     this.loadComponentType().then(() => this.mapSourceComponents()).catch(err => console.log(err));
     this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err));
   }
@@ -167,6 +166,24 @@ export default class DashboardEditScene extends Component {
   };
 
 
+  deleteDashboardFromDb = async () => {
+    try {
+      const deleteMsg = await deleteDashboard(this.state.dashboardId);
+      if (deleteMsg === 204) {
+        this.setState({ dashboardId: 0, gridPosition: { lg: [] }, target: [] });
+        this.fetchExistingDashboard().then((res) => console.log(res)).catch(err => console.log(err));
+      }
+    } catch (err) {
+      console.log('fetchExistingDashboard failed' + err);
+    }
+  };
+
+
+  deleteDashboard = () => {
+    this.deleteDashboardFromDb().catch((err) => console.log(err));
+  };
+
+
   generateButtonToolbar = () => {
     return (
       <ButtonToolbar>
@@ -187,7 +204,8 @@ export default class DashboardEditScene extends Component {
                          layout={this.state.gridPosition}
                          target={this.state.target}
                          updateTarget={this.updateTarget}
-                         removeFromTarget={this.removeFromTarget}/>
+                         removeFromTarget={this.removeFromTarget}
+                         deleteDashboard={this.deleteDashboard}/>
       </div>
     );
   }

@@ -39,3 +39,13 @@ export const fetchExistingDashboard = async () => {
     return err;
   }
 };
+
+
+export const deleteDashboard = async (dashboardId) => {
+  try {
+    const result = await axios.delete(`/api/v1/util/grid_position/${dashboardId}`);
+    return result.status;
+  } catch (err) {
+    return err;
+  }
+};

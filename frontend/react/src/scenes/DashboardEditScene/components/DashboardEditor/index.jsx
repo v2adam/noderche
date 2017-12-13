@@ -153,6 +153,11 @@ export default class DashboardEditor extends Component {
   };
 
 
+  deleteDashboard = () => {
+    this.props.deleteDashboard();
+  };
+
+
   render() {
     return (
       <div id="dashboard" className="dashboard-container">
@@ -161,6 +166,9 @@ export default class DashboardEditor extends Component {
             onClick={() => this.changeStatic()}>{this.state.isEditing ? "Mozgatás" : "Szerkesztés"}</button>
           <button
             onClick={() => this.saveChanges()}>Save
+          </button>
+          <button
+            onClick={() => this.deleteDashboard()}>Delete dashboard
           </button>
         </div>
         <div id="data">
@@ -195,6 +203,7 @@ DashboardEditor.propTypes = {
   layout: PropTypes.objectOf(PropTypes.array),
   isEditing: PropTypes.bool,
   updateTarget: PropTypes.func.isRequired,
-  removeFromTarget: PropTypes.func.isRequired
+  removeFromTarget: PropTypes.func.isRequired,
+  deleteDashboard: PropTypes.func.isRequired
 };
 
