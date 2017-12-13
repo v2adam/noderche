@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import FilterableList from '../../components/FilterableList';
 import './style.css';
-import { fetchComponentType, loadGridPosition } from "../../services/Dashboard";
+import {
+  fetchComponentType,
+  fetchExistingDashboard,
+  loadGridPosition
+} from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
 import Placeholder from "../../components/Placeholder";
 import PlaceholderDataTable from "../../components/PlaceholderDataTable";
@@ -18,11 +22,13 @@ export default class DashboardViewScene extends Component {
       componentTypes: [],
       gridPosition: { lg: [] },
       target: [],
-      dashboardId: this.props.match.params.id
+      dashboardId: this.props.match.params.id,
+      allDashboard: []
     }
   }
 
   componentDidMount() {
+    this.fetchExistingDashboard().then((res) => console.log(res)).catch(err => console.log(err));
     this.loadComponentType().then(() => this.mapSourceComponents()).catch(err => console.log(err));
     this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err));
   }
@@ -138,30 +144,33 @@ export default class DashboardViewScene extends Component {
   };
 
 
+  fetchExistingDashboard = async () => {
+    try {
+      const allDashboardId = await fetchExistingDashboard();
+      await this.setState({ allDashboard: allDashboardId });
+    } catch (err) {
+      console.log('fetchExistingDashboard failed' + err);
+    }
+  };
+
+
+  generateButtonToolbar = () => {
+    return (
+      <ButtonToolbar>
+        <ButtonGroup>
+          {_.map(this.state.allDashboard, (one) => <Button key={one.dashboardId}
+                                                           onClick={() => this.selectDashboard(one.dashboardId)}>{one.dashboardId}</Button>)}
+        </ButtonGroup>
+      </ButtonToolbar>
+    );
+  };
+
+
   render() {
 
     return (
-
       <div>
-        <ButtonToolbar>
-          <ButtonGroup>
-            <Button onClick={() => this.selectDashboard(100)}>100</Button>
-            <Button onClick={() => this.selectDashboard(101)}>101</Button>
-            <Button onClick={() => this.selectDashboard(102)}>102</Button>
-            <Button onClick={() => this.selectDashboard(103)}>103</Button>
-          </ButtonGroup>
-
-          <ButtonGroup>
-            <Button onClick={() => this.selectDashboard(104)}>104</Button>
-            <Button onClick={() => this.selectDashboard(105)}>105</Button>
-            <Button onClick={() => this.selectDashboard(106)}>106</Button>
-          </ButtonGroup>
-
-          <ButtonGroup>
-            <Button onClick={() => this.selectDashboard(107)}>107</Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-
+        {this.generateButtonToolbar()}
         <DashboardView layout={this.state.gridPosition}
                        target={this.state.target}/>
       </div>

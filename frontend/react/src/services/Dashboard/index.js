@@ -29,3 +29,13 @@ export const saveGridPosition = async (position) => {
     return err;
   }
 };
+
+
+export const fetchExistingDashboard = async () => {
+  try {
+    const result = await axios('/api/v1/util/fetch_existing_dashboard');
+    return result.data;
+  } catch (err) {
+    return err;
+  }
+};

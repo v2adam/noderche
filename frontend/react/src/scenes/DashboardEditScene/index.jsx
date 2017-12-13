@@ -3,7 +3,11 @@ import _ from 'lodash';
 import FilterableList from '../../components/FilterableList';
 import DashboardEditor from "./components/DashboardEditor";
 import './style.css';
-import { fetchComponentType, loadGridPosition } from "../../services/Dashboard";
+import {
+  fetchComponentType,
+  fetchExistingDashboard,
+  loadGridPosition
+} from "../../services/Dashboard";
 import RandomGiphy from "../../components/RandomGiphy";
 import Placeholder from "../../components/Placeholder";
 import PlaceholderDataTable from "../../components/PlaceholderDataTable";
@@ -17,11 +21,14 @@ export default class DashboardEditScene extends Component {
     this.state = {
       componentTypes: [],
       gridPosition: { lg: [] },
-      target: []
+      target: [],
+      dashboardId: 0,
+      allDashboard: []
     }
   }
 
   componentDidMount() {
+    this.fetchExistingDashboard().then((res) => console.log(res)).catch(err => console.log(err));
     this.loadComponentType().then(() => this.mapSourceComponents()).catch(err => console.log(err));
     this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err));
   }
@@ -40,9 +47,8 @@ export default class DashboardEditScene extends Component {
   loadGridPositionFromDb = async () => {
     try {
 
-      const dashboardId = 100;
 
-      const fetchedPosition = await loadGridPosition(dashboardId);
+      const fetchedPosition = await loadGridPosition(this.state.dashboardId);
 
       //findOne nem hoz vissza semmit, kell a default []
       const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
@@ -144,35 +150,44 @@ export default class DashboardEditScene extends Component {
   };
 
 
-  render() {
+  selectDashboard = (id) => {
+    this.setState({ dashboardId: id }, () => {
+      this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err))
+    });
+  };
 
+  fetchExistingDashboard = async () => {
+    try {
+      const allDashboardId = await fetchExistingDashboard();
+      await this.setState({ allDashboard: allDashboardId });
+      console.log(allDashboardId);
+    } catch (err) {
+      console.log('fetchExistingDashboard failed' + err);
+    }
+  };
+
+
+  generateButtonToolbar = () => {
     return (
+      <ButtonToolbar>
+        <ButtonGroup>
+          {_.map(this.state.allDashboard, (one) => <Button key={one.dashboardId}
+                                                           onClick={() => this.selectDashboard(one.dashboardId)}>{one.dashboardId}</Button>)}
+        </ButtonGroup>
+      </ButtonToolbar>
+    );
+  };
 
+
+  render() {
+    return (
       <div>
-        <ButtonToolbar>
-          <ButtonGroup>
-            <Button>1</Button>
-            <Button>2</Button>
-            <Button>3</Button>
-            <Button>4</Button>
-          </ButtonGroup>
-
-          <ButtonGroup>
-            <Button>5</Button>
-            <Button>6</Button>
-            <Button>7</Button>
-          </ButtonGroup>
-
-          <ButtonGroup>
-            <Button>8</Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-
+        {this.generateButtonToolbar()}
         <DashboardEditor source={this.state.componentTypes}
-                   layout={this.state.gridPosition}
-                   target={this.state.target}
-                   updateTarget={this.updateTarget}
-                   removeFromTarget={this.removeFromTarget}/>
+                         layout={this.state.gridPosition}
+                         target={this.state.target}
+                         updateTarget={this.updateTarget}
+                         removeFromTarget={this.removeFromTarget}/>
       </div>
     );
   }

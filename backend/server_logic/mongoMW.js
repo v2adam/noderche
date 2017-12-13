@@ -104,6 +104,17 @@ const fetchComponentType = (req, res, next) => {
   });
 };
 
+// összes létező dashboard-ot adja vissza
+const fetchExistingDashboard = async (req, res, next) => {
+  try {
+    const query = PositionModel.find().select('dashboardId -_id');
+    const layout = await query.exec();
+    res.status(200).send(layout);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 
 // adott dashboardhoz pozíciók letöltése
 const loadGridPosition = async (req, res, next) => {
@@ -136,30 +147,29 @@ const loadGridPosition = async (req, res, next) => {
 };
 
 
-// TODO: dashboard)d-t bevezetni
-// új pozíció mentése
+// dashboard elrendezés változtatása esetén
 const saveGridPosition = async (req, res, next) => {
 
   try {
-    await PositionModel.remove({ userId: req.currentUser.userId });
-  } catch (err) {
-    res.status(500).send(err);
-  }
+    const updated = await PositionModel.findOneAndUpdate({ dashboardId: 100 }, {
+      $set: {
+        position: req.body.newPosition.lg,
+        _user: req.currentUser._id
+      }
+    }, { new: true });
 
-  const payload = {
-    _user: req.currentUser._id,
-    position: req.body.newPosition.lg
-  };
+    console.log(updated);
 
-  const saveThis = new PositionModel(payload);
-
-  saveThis.save((err) => {
-    if (err) {
-      res.sendStatus(500);
+    if (_.isNull(updated)) {
+      // TODO: ha new, akkor hozza létre
+      res.status(204);
     } else {
       res.sendStatus(201);
     }
-  });
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
 };
 
 
@@ -171,5 +181,6 @@ module.exports = {
   uploadFile,
   fetchComponentType,
   loadGridPosition,
-  saveGridPosition
+  saveGridPosition,
+  fetchExistingDashboard
 };
