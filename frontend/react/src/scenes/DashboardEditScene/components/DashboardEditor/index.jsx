@@ -11,13 +11,14 @@ export default class DashboardEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      draggedObject: undefined,
-      isEditing: this.props.isEditing,
+      draggedObject: undefined
     };
   }
 
   componentWillReceiveProps() {
     this.setState({ layout: this.props.layout });
+    this.setState({ isEditing: this.props.isEditing });
+
   }
 
 

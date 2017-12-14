@@ -27,48 +27,36 @@ export default class DashboardEditScene extends Component {
   }
 
   componentDidMount() {
-    this.fetchExistingDashboard();
+    this.fetchExistingDashboard().catch((err) => console.log(err));
     this.loadComponentType().then(() => this.mapSourceComponents()).catch(err => console.log(err));
     this.loadGridPositionFromDb().then(() => this.mapTargetComponents()).catch(err => console.log(err));
   }
 
 
   fetchExistingDashboard = async () => {
-    try {
-      const allDashboardId = await fetchExistingDashboard();
-      await this.setState({ allDashboard: allDashboardId });
-    } catch (err) {
-      console.log('fetchExistingDashboard failed' + err);
-    }
+    const allDashboardId = await fetchExistingDashboard();
+    this.setState({ allDashboard: allDashboardId });
   };
 
 
   loadComponentType = async () => {
-    try {
-      const fetchedComponents = await fetchComponentType();
-      await this.setState({ componentTypes: fetchedComponents });
-    } catch (err) {
-      console.log('loadComponentType failed' + err);
-    }
+    const fetchedComponents = await fetchComponentType();
+    this.setState({ componentTypes: fetchedComponents });
   };
 
 
   loadGridPositionFromDb = async () => {
-    try {
-      const fetchedPosition = await loadGridPosition(this.state.dashboardId);
-      //findOne nem hoz vissza semmit, kell a default []
-      const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
-      await this.setState({ gridPosition: lg });
-    } catch (err) {
-      console.log('loadGridPositionFromDb failed' + err);
-    }
+    const fetchedPosition = await loadGridPosition(this.state.dashboardId);
+    //findOne nem hoz vissza semmit, kell a default []
+    const lg = _.isEmpty(fetchedPosition) ? { lg: [] } : { lg: fetchedPosition.position };
+    this.setState({ gridPosition: lg });
   };
 
 
-  mapSourceComponents = async () => {
+  mapSourceComponents = () => {
     const unMapped = this.state.componentTypes.slice();
     const mapped = _.map(unMapped, (componentType) => this.mapWithWidget(componentType));
-    await this.setState({ componentTypes: mapped });
+    this.setState({ componentTypes: mapped });
   };
 
 
@@ -123,9 +111,9 @@ export default class DashboardEditScene extends Component {
   };
 
 
-  mapTargetComponents = async () => {
+  mapTargetComponents = () => {
     const mappedTarget = _.map(this.state.gridPosition.lg, (position) => this.mapTarget(position));
-    await this.setState({ target: mappedTarget });
+    this.setState({ target: mappedTarget });
   };
 
 

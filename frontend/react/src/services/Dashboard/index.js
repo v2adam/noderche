@@ -2,32 +2,20 @@ import axios from 'axios';
 
 
 export const fetchComponentType = async () => {
-  try {
-    const result = await axios('/api/v1/util/fetch_components');
-    return result.data;
-  } catch (err) {
-    return err;
-  }
+  const result = await axios('/api/v1/util/fetch_components');
+  return result.data;
 };
 
 
 export const fetchExistingDashboard = async () => {
-  try {
-    const result = await axios('/api/v1/util/fetch_existing_dashboard');
-    return result.data;
-  } catch (err) {
-    return err;
-  }
+  const result = await axios('/api/v1/util/fetch_existing_dashboard');
+  return result.data;
 };
 
 
 export const loadGridPosition = async (dashboardId) => {
-  try {
-    const result = await axios(`/api/v1/util/grid_position/${dashboardId}`);
-    return result.data;
-  } catch (err) {
-    return err;
-  }
+  const result = await axios(`/api/v1/util/grid_position/${dashboardId}`);
+  return result.data;
 };
 
 
