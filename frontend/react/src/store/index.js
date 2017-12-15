@@ -15,7 +15,7 @@ const routerMW = routerMiddleware(history);
 
 // összefűznia  middleware-ket
 // ehhez olvasni kell egy kicsit, hogy mi mire jó
-const middleware = applyMiddleware(routerMW, promise(), loadingBarMiddleware(), thunk, logger());
+const middleware = applyMiddleware(routerMW, promise(), loadingBarMiddleware(), thunk, logger);
 
 // store létrehozásához kell a combinedReducer + MW-k lánca kell
 // a store-t az indexben használom, átadva a providernek

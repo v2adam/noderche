@@ -1,39 +1,34 @@
 import React from 'react';
-import NavBar from '../NavBar';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingBar from 'react-redux-loading-bar';
-import { push } from 'react-router-redux';
-
+import PropTypes from 'prop-types';
+import NavBar from '../NavBar';
 import { logoutUser } from '../../services/sign/Login/actions';
 import store from '../../store';
 
 class Header extends React.Component {
-
   render() {
-
-    let loginLogoutBtn = null;
-
-    if (this.props.isAuthenticated) {
-      loginLogoutBtn =
-        <button className='btn btn-danger' onClick={() => this.props.logoutUser()}>Logout</button>;
-    } else {
-      loginLogoutBtn =
-        <button className='btn btn-info' onClick={() => store.dispatch(push('/login'))}>
-          Login</button>
-      ;
-    }
-
-
     return (
-      <header>
-        <LoadingBar showFastActions/>
-        <h4>{this.props.loadingBar}</h4>
-        <h4>Current user: {this.props.currentUser.username}</h4>
-        {loginLogoutBtn}
-        <NavBar isAuthenticated={this.props.isAuthenticated}/>
-      </header>
-    )
+      [
+        <LoadingBar key="loadingBarKey" showFastActions />,
+        <h4 key="key2">Current user: {this.props.currentUser.username}</h4>,
+        <button
+          key="logoutKey"
+          className="btn btn-danger"
+          onClick={() => this.props.logoutUser()}
+        >Logout
+        </button>,
+        <button
+          key="loginKey"
+          className="btn btn-info"
+          onClick={() => store.dispatch(push('/login'))}
+        >Login
+        </button>,
+        <NavBar key="navBarKey" isAuthenticated={this.props.isAuthenticated} />
+      ]
+    );
   }
 }
 
@@ -50,8 +45,19 @@ function mapStateToProps(state) {
 
 // ezzel érem el az action-öket
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ logoutUser: logoutUser }, dispatch);
+  return bindActionCreators({ logoutUser }, dispatch);
 }
 
-// ezzel a kiajánlással egy store-ral összekötött komponensem lesz (smart componenet) => container !!!!
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+
+Header.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  currentUser: PropTypes.objectOf(PropTypes.object),
+  logoutUser: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  isAuthenticated: false,
+  currentUser: { username: '' }
+};
