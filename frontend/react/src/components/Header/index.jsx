@@ -53,11 +53,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 Header.propTypes = {
   isAuthenticated: PropTypes.bool,
-  currentUser: PropTypes.objectOf(PropTypes.object),
   logoutUser: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
   isAuthenticated: false,
-  currentUser: { username: '' }
 };
